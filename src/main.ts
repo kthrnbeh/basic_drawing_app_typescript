@@ -11,6 +11,13 @@ ctx.lineJoin ="round";
 let isDrawing: boolean = false;
 let isErasing:boolean = false;
 
+function getCanvasPosition(event: PointerEvent) {
+    const rect = canvas.getBoundingClientRect();
+    const x = (event.clientX - rect.left) *(canvas.width/ rect.width);
+    const y = (event.clientY -rect.top) * (canvas.height/ rect.height); 
+    return { x, y };
+}
+
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
 eraserButton.addEventListener("click", () => {
     isErasing = !isErasing;
