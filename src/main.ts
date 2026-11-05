@@ -9,7 +9,7 @@ const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
 colorPicker.addEventListener("input", () => {
     ctx.strokeStyle = colorPicker.value;
 });
-
+const brushSize = document.getElementById("brushSize") as HTMLInputElement;
 canvas.addEventListener("pointerdown", (event) => {
     isDrawing = true;
     ctx.beginPath();
