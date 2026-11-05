@@ -19,6 +19,7 @@ eraserButton.addEventListener("click", () => {
     } else{
         eraserButton.textContent = "Eraser OFF";
     }
+});
 const clearButton = document.getElementById("clearButton") as HTMLButtonElement;
 clearButton.addEventListener("click", () => {
     ctx.clearRect(0,0, canvas.width, canvas.height);
@@ -58,7 +59,7 @@ canvas.addEventListener("pointerdown", (event) => {
     ctx.moveTo(event.offsetX, event.offsetY);
 });
 canvas.addEventListener("pointermove", (event) => {
-    if(!isDrawing || event.button==0) {
+    if(!isDrawing || event.buttons===0) {
         isDrawing = false;
         return;
     }
