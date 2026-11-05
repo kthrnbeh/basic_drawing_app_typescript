@@ -11,12 +11,7 @@ let isErasing = false;
 const eraserButton = document.getElementById("eraserButton");
 eraserButton.addEventListener("click", () => {
     isErasing = !isErasing;
-    if (isErasing) {
-        eraserButton.textContent = "Eraser ON";
-    }
-    else {
-        eraserButton.textContent = "Eraser OFF";
-    }
+    eraserButton.classList.toggle("active", isErasing);
 });
 const clearButton = document.getElementById("clearButton");
 clearButton.addEventListener("click", () => {
