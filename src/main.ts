@@ -10,3 +10,8 @@ canvas.addEventListener("pointerdown", (event) => {
     ctx.beginPath();
     ctx.moveTo(event.offsetX, event.offsetY);
 });
+canvas.addEventListener("pointermove", (event) => {
+    if(isDrawing) return; 
+        ctx.lineTo(event.offsetX, event.offsetY);
+        ctx.stroke();
+});
