@@ -36,11 +36,11 @@ section.tools{
 section.drawing-area{
     background-color: #f1f5f9;
 }
-#eraseButton{
+#eraserButton{
     background-color: #f56dac;
     color: white;
 }
-#eraseButton:hover{
+#eraserButton:hover{
     background-color: #c6b6bd;
     opacity: 0.8;
 }
