@@ -12,7 +12,7 @@ let isDrawing: boolean = false;
 let isErasing:boolean = false;
 
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
-eraseButton.addEventListener("click", () => {
+eraserButton.addEventListener("click", () => {
     isErasing = !isErasing;
     if(isErasing) {
         eraserButton.textContent = "Eraser ON";
@@ -70,4 +70,4 @@ canvas.addEventListener("pointerup", () => {
 });
 canvas.addEventListener('pointercancel',() => {
     isDrawing = false;
-})
+});
