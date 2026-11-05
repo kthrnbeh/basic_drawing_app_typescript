@@ -59,8 +59,11 @@ canvas.addEventListener("pointermove", (event) => {
         isDrawing = false;
         return;
     }
-    ctx.lineTo(event.offsetX, event.offsetY);
+    const position = getCanvasPosition(event);
+    ctx.lineTo(position.x, position.y);
     ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(position.x, position.y);
 });
 canvas.addEventListener("pointerup", () => {
     isDrawing = false;
