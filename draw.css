@@ -1,4 +1,19 @@
+
+
+
+
+
 #drawingCanvas {
-    border: 2px solid black;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid #cbd5e1;
     background-color: white;
+    cursor: crosshair;
+    touch-action: none; /* Prevent touch scrolling on mobile devices */
+    max-width: 100%; /* Ensure the canvas doesn't exceed the viewport width */
+}
+footer{
+    text-align: center;
+     color: #64748b;
+     margin-top: 25px;
 }
