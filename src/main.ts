@@ -19,7 +19,11 @@ eraseButton.addEventListener("click", () => {
     } else{
         eraserButton.textContent = "Eraser OFF";
     }
+const clearButton = document.getElementById("clearButton") as HTMLButtonElement;
+clearButton.addEventListener("click", () => {
+    ctx.clearRect(0,0, canvas.width, canvas.height);
     
+});
 
 const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
 colorPicker.addEventListener("input", () => {
