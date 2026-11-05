@@ -44,6 +44,11 @@ section.drawing-area{
     background-color: #c6b6bd;
     opacity: 0.8;
 }
+#saveButton{
+    font-size: 20px;
+    background-color: #5d84b3;
+    color: white;
+}
 button{
     padding: 10px 15px;
     border: none;
