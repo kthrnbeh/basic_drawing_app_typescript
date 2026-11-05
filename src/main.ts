@@ -18,3 +18,6 @@ canvas.addEventListener("pointermove", (event) => {
 canvas.addEventListener("pointerup", () => {
     isDrawing = false;
 });
+canvas.addEventListener('pointercancel',() => {
+    isDrawing = false;
+})
