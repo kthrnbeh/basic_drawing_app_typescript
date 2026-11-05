@@ -9,7 +9,7 @@ ctx.lineJoin = "round";
 let isDrawing = false;
 let isErasing = false;
 const eraserButton = document.getElementById("eraserButton");
-eraseButton.addEventListener("click", () => {
+eraserButton.addEventListener("click", () => {
     isErasing = !isErasing;
     if (isErasing) {
         eraserButton.textContent = "Eraser ON";
