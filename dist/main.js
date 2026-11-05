@@ -7,6 +7,17 @@ ctx.lineWidth = 5;
 ctx.lineCap = "round";
 ctx.lineJoin = "round";
 let isDrawing = false;
+let isErasing = false;
+const eraserButton = document.getElementById("eraserButton");
+eraseButton.addEventListener("click", () => {
+    isErasing = !isErasing;
+    if (isErasing) {
+        eraserButton.textContent = "Eraser ON";
+    }
+    else {
+        eraserButton.textContent = "Eraser OFF";
+    }
+});
 const colorPicker = document.getElementById("colorPicker");
 colorPicker.addEventListener("input", () => {
     ctx.strokeStyle = colorPicker.value;
@@ -19,6 +30,13 @@ brushSize.addEventListener("input", () => {
 });
 canvas.addEventListener("pointerdown", (event) => {
     isDrawing = true;
+    if (isErasing) {
+        ctx.globalCompositeOperation = "destination-out";
+    }
+    else {
+        ctx.globalCompositeOperation = "source-over";
+        ctx.strokeStyle = colorPicker.value;
+    }
     ctx.beginPath();
     ctx.moveTo(event.offsetX, event.offsetY);
 });
