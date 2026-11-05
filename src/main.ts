@@ -15,3 +15,6 @@ canvas.addEventListener("pointermove", (event) => {
         ctx.lineTo(event.offsetX, event.offsetY);
         ctx.stroke();
 });
+canvas.addEventListener("pointerup", () => {
+    isDrawing = false;
+});
