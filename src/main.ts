@@ -19,8 +19,7 @@ eraseButton.addEventListener("click", () => {
     } else{
         eraserButton.textContent = "Eraser OFF";
     }
-    }
-
+    
 
 const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
 colorPicker.addEventListener("input", () => {
