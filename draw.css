@@ -49,6 +49,10 @@ section.drawing-area{
     background-color: #5d84b3;
     color: white;
 }
+#saveButton:hover{
+    background-color: #c6b6bd;
+    opacity: 0.8;
+}
 button{
     padding: 10px 15px;
     border: none;
