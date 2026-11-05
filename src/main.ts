@@ -1,3 +1,1 @@
-const appName: string = "SketchPad";
-
-console.log(`${appName} TypeScript is working!`);
+const canvas = document.getElementById("drawingCanvas");
