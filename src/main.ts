@@ -5,6 +5,10 @@ if(!ctx) {
     throw new Error("Failed to get 2D context");
 }
 let isDrawing: boolean = false;
+const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
+colorPicker.addEventListener("input", () => {
+    ctx.strokeStyle = colorPicker.value;
+});
 canvas.addEventListener("pointerdown", (event) => {
     isDrawing = true;
     ctx.beginPath();
