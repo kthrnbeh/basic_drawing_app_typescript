@@ -1,4 +1,4 @@
-const canvas = document.getElementById("drawingCanvas") AS HTMLCanvasElement;
+const canvas = document.getElementById("drawingCanvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d");
 
 if(!ctx) {

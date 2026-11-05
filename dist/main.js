@@ -1,5 +1,25 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const canvas = document.getElementById("drawingCanvas");
-console.log(canvas);
+const canvas = document.getElementById("drawingCanvas"), AS, HTMLCanvasElement;
+const ctx = canvas.getContext("2d");
+if (!ctx) {
+    throw new Error("Failed to get 2D context");
+}
+let isDrawing = false;
+canvas.addEventListener("pointerdown", (event) => {
+    isDrawing = true;
+    ctx.beginPath();
+    ctx.moveTo(event.offsetX, event.offsetY);
+});
+canvas.addEventListener("pointermove", (event) => {
+    if (isDrawing)
+        return;
+    ctx.lineTo(event.offsetX, event.offsetY);
+    ctx.stroke();
+});
+canvas.addEventListener("pointerup", () => {
+    isDrawing = false;
+});
+canvas.addEventListener('pointercancel', () => {
+    isDrawing = false;
+});
+export {};
 //# sourceMappingURL=main.js.map
