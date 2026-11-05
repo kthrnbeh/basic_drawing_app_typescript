@@ -4,6 +4,10 @@ const ctx = canvas.getContext("2d");
 if(!ctx) {
     throw new Error("Failed to get 2D context");
 }
+ctx.lineWidth = 5;
+ctx.lineCap = "round";
+ctx.lineJoin ="round";
+
 let isDrawing: boolean = false;
 const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
 colorPicker.addEventListener("input", () => {
