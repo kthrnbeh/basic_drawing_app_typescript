@@ -1,3 +1,12 @@
+main{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.layout{
+    display: grid;
+    grid-template-columns: 220px minmax(0,1fr);
+    gap: 20px;
+}
 body{
     font-family:'Courier New', Courier, monospace;
     background-color: #e9eef5;
@@ -16,6 +25,12 @@ section{
     margin-bottom: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+}
+section.tools{
+    background-color: #e2e8f0;
+}
+section.drawing-area{
+    background-color: #f1f5f9;
 }
 button{
     padding: 10px 15px;

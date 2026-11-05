@@ -14,11 +14,13 @@
         <p>Draw something creative!</p>
     </header>
 
-    <main>
-        <section>
+    <main class="layout">
+        <section class="tools">
             <h2>Drawing Tools</h2>
+
             <label for="colorPicker">Brush Color:</label>
             <input type="color" id="colorPicker" value="#000000">
+
             <button id ="eraserButton">Eraser</button>
             <button id="clearButton">Clear</button>
             <button id="saveButton">Save As</button>
@@ -27,7 +29,7 @@
             <span id="brushSizeValue">5</span>
         </section>
 
-        <section>
+        <section class="drawing-area">
             <h2>Drawing Area</h2>
             <canvas id="drawingCanvas" width="800" height="500"></canvas>
         </section>
