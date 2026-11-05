@@ -11,7 +11,10 @@ canvas.addEventListener("pointerdown", (event) => {
     ctx.moveTo(event.offsetX, event.offsetY);
 });
 canvas.addEventListener("pointermove", (event) => {
-    if(isDrawing) return; 
+    if(!isDrawing || event.button==0) {
+        isDrawing = false;
+        return;
+    }
         ctx.lineTo(event.offsetX, event.offsetY);
         ctx.stroke();
 });
