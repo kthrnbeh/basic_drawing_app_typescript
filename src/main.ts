@@ -9,6 +9,11 @@ ctx.lineCap = "round";
 ctx.lineJoin ="round";
 
 let isDrawing: boolean = false;
+let isErasing:boolean = false;
+
+
+
+
 const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
 colorPicker.addEventListener("input", () => {
     ctx.strokeStyle = colorPicker.value;
