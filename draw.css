@@ -10,6 +10,13 @@ header{
     text-align: center;
     margin-bottom: 25px;
 }
+section{
+    background-color: #f1f5f9;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.8);
+}
 
 
 
