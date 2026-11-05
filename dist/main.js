@@ -8,6 +8,12 @@ ctx.lineCap = "round";
 ctx.lineJoin = "round";
 let isDrawing = false;
 let isErasing = false;
+function getCanvasPosition(event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = (event.clientX - rect.left) * (canvas.width / rect.width);
+    const y = (event.clientY - rect.top) * (canvas.height / rect.height);
+    return { x, y };
+}
 const eraserButton = document.getElementById("eraserButton");
 eraserButton.addEventListener("click", () => {
     isErasing = !isErasing;
@@ -44,8 +50,9 @@ canvas.addEventListener("pointerdown", (event) => {
         ctx.globalCompositeOperation = "source-over";
         ctx.strokeStyle = colorPicker.value;
     }
+    const position = getCanvasPosition(event);
     ctx.beginPath();
-    ctx.moveTo(event.offsetX, event.offsetY);
+    ctx.moveTo(position.x, position.y);
 });
 canvas.addEventListener("pointermove", (event) => {
     if (!isDrawing || event.buttons === 0) {
