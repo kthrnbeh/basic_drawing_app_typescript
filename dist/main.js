@@ -3,10 +3,19 @@ const ctx = canvas.getContext("2d");
 if (!ctx) {
     throw new Error("Failed to get 2D context");
 }
+ctx.lineWidth = 5;
+ctx.lineCap = "round";
+ctx.lineJoin = "round";
 let isDrawing = false;
 const colorPicker = document.getElementById("colorPicker");
 colorPicker.addEventListener("input", () => {
     ctx.strokeStyle = colorPicker.value;
+});
+const brushSize = document.getElementById("brushSize");
+const brushSizeValue = document.getElementById("brushSizeValue");
+brushSize.addEventListener("input", () => {
+    ctx.lineWidth = Number(brushSize.value);
+    brushSizeValue.textContent = brushSize.value;
 });
 canvas.addEventListener("pointerdown", (event) => {
     isDrawing = true;
