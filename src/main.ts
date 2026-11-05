@@ -12,9 +12,14 @@ let isDrawing: boolean = false;
 let isErasing:boolean = false;
 
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
-
-
-
+eraseButton.addEventListener("click", () => {
+    isErasing = !isErasing;
+    if(isErasing) {
+        eraserButton.textContent = "Eraser ON";
+    } else{
+        eraserButton.textContent = "Eraser OFF";
+    }
+    }
 
 
 const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
