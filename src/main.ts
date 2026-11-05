@@ -11,6 +11,9 @@ ctx.lineJoin ="round";
 let isDrawing: boolean = false;
 let isErasing:boolean = false;
 
+const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
+
+
 
 
 
