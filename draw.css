@@ -28,6 +28,10 @@ section{
 }
 section.tools{
     background-color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
 }
 section.drawing-area{
     background-color: #f1f5f9;
