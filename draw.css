@@ -83,6 +83,11 @@ button:hover{
     touch-action: none; /* Prevent touch scrolling on mobile devices */
     max-width: 100%; /* Ensure the canvas doesn't exceed the viewport width */
 }
+h2{
+    text-align: center;
+    margin-top: 0;
+    padding-top: 30px;
+}
 footer{
     text-align: center;
      color: #64748b;
