@@ -5,3 +5,8 @@ if(!ctx) {
     throw new Error("Failed to get 2D context");
 }
 let isDrawing: boolean = false;
+canvas.addEventListener("pointerdown", (event) => {
+    isDrawing = true;
+    ctx.beginPath();
+    ctx.moveTo(event.offsetX, event.offsetY);
+});
