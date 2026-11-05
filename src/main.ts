@@ -11,6 +11,10 @@ colorPicker.addEventListener("input", () => {
 });
 const brushSize = document.getElementById("brushSize") as HTMLInputElement;
 const brushSizeValue = document.getElementById("brushSizeValue") as HTMLSpanElement;
+brushSize.addEventListener("input", ()=>{ 
+    ctx.lineWidth = Number(brushSize.value);
+    brushSizeValue.textContent = brushSize.value;
+});
 
 
 canvas.addEventListener("pointerdown", (event) => {
