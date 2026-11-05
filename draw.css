@@ -45,7 +45,7 @@ section.drawing-area{
     opacity: 0.8;
 }
 #eraserButton:active{
-    background-color: #c6b6bd;
+    background-color: #bfb5b9;
     opacity: 0.8;
 }
 #eraserButton.active:hover{
