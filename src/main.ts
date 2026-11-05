@@ -36,6 +36,12 @@ brushSize.addEventListener("input", ()=>{
 
 canvas.addEventListener("pointerdown", (event) => {
     isDrawing = true;
+    if(isErasing) {
+        ctx.globalCompositeOperation = "destination-out";
+    } else {
+        ctx.globalCompositeOperation ="source-over";
+        ctx.strokeStyle = colorPicker.value;
+    }
     ctx.beginPath();
     ctx.moveTo(event.offsetX, event.offsetY);
 });
