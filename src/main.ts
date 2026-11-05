@@ -58,8 +58,9 @@ canvas.addEventListener("pointerdown", (event) => {
         ctx.globalCompositeOperation ="source-over";
         ctx.strokeStyle = colorPicker.value;
     }
-    ctx.beginPath();
-    ctx.moveTo(event.offsetX, event.offsetY);
+   const position = getCanvasPosition(event);
+   ctx.beginPath();
+   ctx.moveTo(position.x , position.y);
 });
 canvas.addEventListener("pointermove", (event) => {
     if(!isDrawing || event.buttons===0) {
