@@ -25,6 +25,15 @@ clearButton.addEventListener("click", () => {
     
 });
 
+const saveButton = document.getElementById("saveButton") as HTMLButtonElement;
+saveButton.addEventListener("click", () => {
+    const image = canvas.toDataURL("image/png");
+    const link =document.createElement("a");
+    link.href = image;
+    link.download = "drawing.png";
+    link.click();
+});
+
 const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
 colorPicker.addEventListener("input", () => {
     ctx.strokeStyle = colorPicker.value;
