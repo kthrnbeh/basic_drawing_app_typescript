@@ -54,6 +54,16 @@ class ShapeTool {
                 button?.classList.toggle("selected", name ===(shape ?? "brush"));
             });
             }
+            private start(event:PointerEvent):void{
+                const position getCanvasPosition(event); 
+                this.startX = position.x
+                this.startY = position.y
+                this.dragging= true;
+                this.snapshot = this.ctx.getImageData(
+                    0,0, this.canvas.width,this.canvas.height
+                );
+                this.ctx.globalCompositeOperation = "source-over"
+            }
         }
     });
 };
