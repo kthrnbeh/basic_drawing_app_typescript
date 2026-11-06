@@ -71,5 +71,20 @@ canvas.addEventListener("pointerup", () => {
 canvas.addEventListener('pointercancel', () => {
     isDrawing = false;
 });
+class DrawingApp {
+    isDrawing = false;
+    isErasing = false;
+    startDrawing() {
+        this.isDrawing = true;
+        console.log("Drawing start");
+    }
+    stopDrawing() {
+        this.isDrawing = false;
+        console.log("Drawing stop");
+    }
+}
+const app = new DrawingApp();
+app.startDrawing();
+app.stopDrawing();
 export {};
 //# sourceMappingURL=main.js.map
