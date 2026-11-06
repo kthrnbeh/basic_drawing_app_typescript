@@ -82,6 +82,9 @@ canvas.addEventListener('pointercancel',() => {
 class DrawingApp {
     private isDrawing:boolean= false;
     private isErasing:boolean= false;
+    constructor() {
+        console.log("DrawingApp started");
+    }
 
     startDrawing():void{
         this.isDrawing = true;
