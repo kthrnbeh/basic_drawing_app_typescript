@@ -43,7 +43,7 @@ class ShapeTool {
         buttons.forEach((item) => {
             const button = document.getElementById(item.id);
             button?.addEventListener("click", () => {
-                this.selectTool= item.tool;
+                this.selectTool(item.tool);
             });
         });
 
@@ -72,7 +72,7 @@ class ShapeTool {
     }
 
     private start(event: PointerEvent): void {
-        if(!this.currentShape || event.button ! ==0) return;
+        if(!this.currentShape || event.button !== 0) return;
         const position = getCanvasPosition(event);
         this.startX = position.x;
         this.startY = position.y;
@@ -92,11 +92,11 @@ class ShapeTool {
         this.drawShape(event);
     }
     private finish(event:PointerEvent):void {
-        if(this.dragging || !this.snapshot)return;
+        if(!this.dragging || !this.snapshot)return;
         this.ctx.putImageData(this.snapshot,0,0);
         this.drawShape(event);
         this.dragging=false;
-        this.snapshot = false;
+        this.snapshot = null;
     }
     private cancel():void {
         if (this.snapshot){

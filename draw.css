@@ -100,7 +100,7 @@ h2{
 .shapes button{
     background-color: #94a3b8;
 }
-.shapes button.seleted{
+.shapes button.selected{
     background-color: #5d84b3;
     color: white;
 }
