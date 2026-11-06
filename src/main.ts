@@ -72,6 +72,7 @@ class ShapeTool {
     }
 
     private start(event: PointerEvent): void {
+        if(!this.currentShape || event.button ! ==0) return;
         const position = getCanvasPosition(event);
         this.startX = position.x;
         this.startY = position.y;
@@ -80,7 +81,7 @@ class ShapeTool {
         this.ctx.globalCompositeOperation = "source-over";
     }
 
-    // Add move, finish, and cancel implementations here when you implement shape drawing.
+    
 }
 
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
