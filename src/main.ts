@@ -137,7 +137,15 @@ class ShapeTool {
                 this.ctx.closePath();
                 break
         }
-        const fillShape =
+        const fillShape = document.getElementById('fillShape')as HTMLInputElement;
+
+        if (fillShape.checked && this.currentShape !== "line"){
+            this.ctx.fill();
+        }
+        else{
+            this.ctx.stroke();
+        }
+        this.ctx.restore();
     }
    
 }
