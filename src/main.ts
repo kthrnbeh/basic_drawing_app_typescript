@@ -24,7 +24,43 @@ class ShapeTool {
     private startY: number = 0;
     private dragging: boolean =false;
     private snapshot: ImageData | null = null;
-}
+    constructor(
+        private canvas: HTMLCanvasElement,
+        private ctx: CanvasRenderingContext2D
+    )
+    {
+        const buttons:{id: string; tool: shapeKind|null}[] = [
+            {id:"brushButton", tool: null},
+            {id: "rectangleButton", tool: "rectangle"},
+            {id: "circleButton", tool: "circle"},
+            {id: "lineButton", tool: "line"},
+            {id: "triangleButton", tool: "triangle"}
+        ];
+        buttons.forEach((item) => {
+            const  button = document.getElementById(item.id) 
+            button?.addEventListener("click", () => {
+                this.currentShape = item.tool;
+            });
+        public isActive():boolean{
+            return this.currentShape !== null;
+        }
+        public selectTool(shape: shapeKind | null):void{
+            this.currentShape = shape;
+            isErasing= false;
+            eraserButton.classList.remove("active");
+            const tools= ["brush", "rectangle", "circle", "line", "triangle"];
+            tools.forEach((name) => {
+                const button = document.getElementById(name + "Button");
+                button?.classList.toggle("selected", name ===(shape ?? "brush"));
+            });
+            }
+        }
+    });
+};
+canvas.addEventListener("pointerdown", (event) => {this.start(event)});
+canvas.addEventListener("pointermove", (event) => {this.move(event)});
+canvas.addEventListener("pointerup", (event) => {this.finish(event)});
+canvas.addEventListener("pointercancel", (event) => {this.cancel(event)});
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
 eraserButton.addEventListener("click", () => {
     isErasing = !isErasing;
