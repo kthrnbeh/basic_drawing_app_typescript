@@ -116,6 +116,7 @@ class ShapeTool {
         this.ctx.lineWidth = Number(brushSize.value);
         this.ctx.strokeStyle= colorPicker.value;
         this.ctx.fillStyle = colorPicker.value;
+        this.ctx.globalCompositeOperation = "source-over";
         this.ctx.beginPath();
 
         switch (this.currentShape){
