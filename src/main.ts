@@ -81,7 +81,16 @@ class ShapeTool {
         this.ctx.globalCompositeOperation = "source-over";
     }
 
-    
+    // Add move, finish, and cancel implementations here when you implement shape drawing.
+    private move(event:PointerEvent): void{
+        if(!this.dragging || !this.snapshot) return;
+        if((event.buttons & 1) === 0){
+            this.cancel();
+            return;
+        }
+        this.ctx.putImageData(this.snapshot,0,0);
+        this.drawShape(event);
+    }
 }
 
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
