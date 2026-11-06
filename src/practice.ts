@@ -31,4 +31,5 @@ catch(error) {
     }
 
 }
+}
 runPractice();
