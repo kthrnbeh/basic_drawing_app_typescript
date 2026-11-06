@@ -17,7 +17,14 @@ function getCanvasPosition(event: PointerEvent) {
     const y = (event.clientY -rect.top) * (canvas.height/ rect.height); 
     return { x, y };
 }
-
+type shapeKind = "rectangle" | "circle" | "line"| "triangle";
+class ShapeTool {
+    private currentShape: shapeKind | null = null;
+    private startX: number = 0;
+    private startY: number = 0;
+    private dragging: boolean =false;
+    private snapshot: ImageData | null = null;
+}
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
 eraserButton.addEventListener("click", () => {
     isErasing = !isErasing;
