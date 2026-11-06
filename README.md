@@ -1,10 +1,10 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+The software in TypeScript I am trying to demonstrate is classes, methods,Display output to the terminal, recursions, classes, lists, Asynchronous functions, constants, functions, conditional. 
 
-{Provide a description of the software that you wrote to demonstrate the TypeScript language.}
+The software that this typescript is for is a drawing webpage with color, brush size, shapes, eraser, clear, save. This was a fun project that allowed for me to demonstrate these properties. 
 
-{Describe your purpose for writing this software.}
+The Joy of a drawing page is that you can doodle, I can recall all the times I as a kid pulled up a paint on my computer. I wanted to see how it was created, and found it facinating, especailly all the work it takes to just make shapes, and for them to be filled. That was amazing. 
 
 {Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
 
@@ -12,20 +12,19 @@
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
+- Visual studio, Nodes
 
-{Describe the programming language that you used and any libraries.}
+-Html, CSS, TYSCRIPT
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
 - [YOUTUBE] https://www.youtube.com/watch?v=ZvZ7gvcmPmI
+-[YOUTUBE] https://www.youtube.com/watch?v=y84tBZo8GFo&t=223s
 - [CHATGPT]https://chatgpt.com/c/6aeca570-b0e0-83ea-b98c-5f8f7e1db8ae
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
+
 
 - Item 1
 - Item 2
