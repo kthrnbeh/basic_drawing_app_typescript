@@ -50,7 +50,7 @@ class ShapeTool {
         this.canvas.addEventListener("pointerdown", (event) => this.start(event));
         this.canvas.addEventListener("pointermove", (event) => this.move(event));
         this.canvas.addEventListener("pointerup", (event) => this.finish(event));
-        this.canvas.addEventListener("pointercancel", (event) => this.cancel(event));
+        this.canvas.addEventListener("pointercancel", (event) => this.cancel());
     }
 
     public isActive(): boolean {
@@ -156,7 +156,7 @@ const shapeTool = new ShapeTool(canvas, ctx);
 
 eraserButton.addEventListener("click", () => {
     shapeTool.selectTool(null);
-    
+
     isErasing = !isErasing;
     eraserButton.classList.toggle("active", isErasing);
 });
