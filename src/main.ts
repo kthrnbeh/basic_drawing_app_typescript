@@ -155,9 +155,10 @@ const eraserButton = document.getElementById("eraserButton") as HTMLButtonElemen
 const shapeTool = new ShapeTool(canvas, ctx);
 
 eraserButton.addEventListener("click", () => {
+    const nextState = !isErasing;
     shapeTool.selectTool(null);
 
-    isErasing = !isErasing;
+    isErasing = nextState;
     eraserButton.classList.toggle("active", isErasing);
 });
 
