@@ -91,6 +91,20 @@ class ShapeTool {
         this.ctx.putImageData(this.snapshot,0,0);
         this.drawShape(event);
     }
+    private finish(event:PointerEvent):void {
+        if(this.dragging || !this.snapshot)return;
+        this.ctx.putImageData(this.snapshot,0,0);
+        this.drawShape(event);
+        this.dragging=false;
+        this.snapshot = false;
+    }
+    private cancel():void {
+        if (this.snapshot){
+            this.ctx.putImageData(this.snapshot,0,0);
+        }
+        this.dragging =false;
+        this.snapshot =null;
+    }
 }
 
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
