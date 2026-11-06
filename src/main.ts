@@ -105,7 +105,43 @@ class ShapeTool {
         this.dragging =false;
         this.snapshot =null;
     }
+    private drawShape(event:PointerEvent):void{
+        const position = getCanvasPosition(event);
+        const x =position.x;
+        const y =position.y;
+        const width =x-this.startX;
+        const height=y-this.startY;
+
+        this.ctx.save();
+        this.ctx.lineWidth = Number(brushSize.value);
+        this.ctx.strokeStyle= colorPicker.value;
+        this.ctx.fillStyle = colorPicker.value;
+        this.ctx.beginPath();
+
+        switch (this.currentShape){
+            case "rectangle":
+                this.ctx.rect(this.startX,this.startY,width,height);
+                break;
+            case"circle":
+                const radius= Math.hypot(width,height)
+                this.ctx.arc(this.startX,this.startY,radius,0,Math.PI *2);
+                break;
+            case 'line':
+                this.ctx.moveTo(this.startX,this.startY);
+                this.ctx.lineTo(x,y);
+                break;
+            case 'triangle':
+                this.ctx.moveTo(this.startX + width/2,this.startY);
+                this.ctx.lineTo(this.startX,y);
+                this.ctx.lineTo(x,y):
+                this.ctx.closePath();
+                break
+        }
+        const fillShape =
+    }
+   
 }
+
 
 const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
 const shapeTool = new ShapeTool(canvas, ctx);
