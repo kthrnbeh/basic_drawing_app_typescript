@@ -35,7 +35,7 @@ class ShapeTool {
         buttons.forEach((item) => {
             const button = document.getElementById(item.id);
             button?.addEventListener("click", () => {
-                this.selectTool = item.tool;
+                this.selectTool(item.tool);
             });
         });
         this.canvas.addEventListener("pointerdown", (event) => this.start(event));
@@ -58,7 +58,7 @@ class ShapeTool {
         });
     }
     start(event) {
-        if (!this.currentShape || event.button == 0)
+        if (!this.currentShape || event.button !== 0)
             return;
         const position = getCanvasPosition(event);
         this.startX = position.x;
@@ -79,12 +79,12 @@ class ShapeTool {
         this.drawShape(event);
     }
     finish(event) {
-        if (this.dragging || !this.snapshot)
+        if (!this.dragging || !this.snapshot)
             return;
         this.ctx.putImageData(this.snapshot, 0, 0);
         this.drawShape(event);
         this.dragging = false;
-        this.snapshot = false;
+        this.snapshot = null;
     }
     cancel() {
         if (this.snapshot) {
@@ -103,6 +103,7 @@ class ShapeTool {
         this.ctx.lineWidth = Number(brushSize.value);
         this.ctx.strokeStyle = colorPicker.value;
         this.ctx.fillStyle = colorPicker.value;
+        this.ctx.globalCompositeOperation = "source-over";
         this.ctx.beginPath();
         switch (this.currentShape) {
             case "rectangle":
@@ -136,8 +137,9 @@ class ShapeTool {
 const eraserButton = document.getElementById("eraserButton");
 const shapeTool = new ShapeTool(canvas, ctx);
 eraserButton.addEventListener("click", () => {
+    const nextState = !isErasing;
     shapeTool.selectTool(null);
-    isErasing = !isErasing;
+    isErasing = nextState;
     eraserButton.classList.toggle("active", isErasing);
 });
 const clearButton = document.getElementById("clearButton");
