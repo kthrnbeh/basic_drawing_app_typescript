@@ -35,23 +35,31 @@ class ShapeTool {
         buttons.forEach((item) => {
             const button = document.getElementById(item.id);
             button?.addEventListener("click", () => {
-                this.currentShape = item.tool;
+                this.selectTool = item.tool;
             });
         });
         this.canvas.addEventListener("pointerdown", (event) => this.start(event));
         this.canvas.addEventListener("pointermove", (event) => this.move(event));
         this.canvas.addEventListener("pointerup", (event) => this.finish(event));
-        this.canvas.addEventListener("pointercancel", (event) => this.cancel(event));
+        this.canvas.addEventListener("pointercancel", (event) => this.cancel());
     }
     isActive() {
         return this.currentShape !== null;
     }
     selectTool(shape) {
         this.currentShape = shape;
+        isDrawing = false;
         isErasing = false;
         eraserButton.classList.remove("active");
+        const buttons = ['brush', 'rectangle', 'circle', 'line', 'triangle'];
+        buttons.forEach((name) => {
+            const button = document.getElementById(name + 'Button');
+            button?.classList.toggle("selected", name === (shape ?? 'brush'));
+        });
     }
     start(event) {
+        if (!this.currentShape || event.button == 0)
+            return;
         const position = getCanvasPosition(event);
         this.startX = position.x;
         this.startY = position.y;
@@ -59,10 +67,76 @@ class ShapeTool {
         this.snapshot = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.globalCompositeOperation = "source-over";
     }
+    // Add move, finish, and cancel implementations here when you implement shape drawing.
+    move(event) {
+        if (!this.dragging || !this.snapshot)
+            return;
+        if ((event.buttons & 1) === 0) {
+            this.cancel();
+            return;
+        }
+        this.ctx.putImageData(this.snapshot, 0, 0);
+        this.drawShape(event);
+    }
+    finish(event) {
+        if (this.dragging || !this.snapshot)
+            return;
+        this.ctx.putImageData(this.snapshot, 0, 0);
+        this.drawShape(event);
+        this.dragging = false;
+        this.snapshot = false;
+    }
+    cancel() {
+        if (this.snapshot) {
+            this.ctx.putImageData(this.snapshot, 0, 0);
+        }
+        this.dragging = false;
+        this.snapshot = null;
+    }
+    drawShape(event) {
+        const position = getCanvasPosition(event);
+        const x = position.x;
+        const y = position.y;
+        const width = x - this.startX;
+        const height = y - this.startY;
+        this.ctx.save();
+        this.ctx.lineWidth = Number(brushSize.value);
+        this.ctx.strokeStyle = colorPicker.value;
+        this.ctx.fillStyle = colorPicker.value;
+        this.ctx.beginPath();
+        switch (this.currentShape) {
+            case "rectangle":
+                this.ctx.rect(this.startX, this.startY, width, height);
+                break;
+            case "circle":
+                const radius = Math.hypot(width, height);
+                this.ctx.arc(this.startX, this.startY, radius, 0, Math.PI * 2);
+                break;
+            case 'line':
+                this.ctx.moveTo(this.startX, this.startY);
+                this.ctx.lineTo(x, y);
+                break;
+            case 'triangle':
+                this.ctx.moveTo(this.startX + width / 2, this.startY);
+                this.ctx.lineTo(this.startX, y);
+                this.ctx.lineTo(x, y);
+                this.ctx.closePath();
+                break;
+        }
+        const fillShape = document.getElementById('fillShape');
+        if (fillShape.checked && this.currentShape !== "line") {
+            this.ctx.fill();
+        }
+        else {
+            this.ctx.stroke();
+        }
+        this.ctx.restore();
+    }
 }
 const eraserButton = document.getElementById("eraserButton");
 const shapeTool = new ShapeTool(canvas, ctx);
 eraserButton.addEventListener("click", () => {
+    shapeTool.selectTool(null);
     isErasing = !isErasing;
     eraserButton.classList.toggle("active", isErasing);
 });
@@ -104,6 +178,8 @@ canvas.addEventListener("pointerdown", (event) => {
     ctx.moveTo(position.x, position.y);
 });
 canvas.addEventListener("pointermove", (event) => {
+    if (shapeTool.isActive())
+        return;
     if (!isDrawing || event.buttons === 0) {
         isDrawing = false;
         return;
