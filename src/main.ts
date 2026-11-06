@@ -43,7 +43,7 @@ class ShapeTool {
         buttons.forEach((item) => {
             const button = document.getElementById(item.id);
             button?.addEventListener("click", () => {
-                this.currentShape = item.tool;
+                this.selectTool= item.tool;
             });
         });
 
@@ -59,8 +59,16 @@ class ShapeTool {
 
     public selectTool(shape: shapeKind | null): void {
         this.currentShape = shape;
+        isDrawing = false;
         isErasing = false;
         eraserButton.classList.remove("active");
+        const buttons =['brush','rectangle','circle','line','triangle'];
+
+        buttons.forEach((name)=>{
+            const button= document.getElementById(name +'Button');
+            button?.classList.toggle("selected", name===(shape ?? 'brush'));
+
+        });
     }
 
     private start(event: PointerEvent): void {

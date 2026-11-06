@@ -39,7 +39,7 @@ section.drawing-area{
 #eraserButton{
     background-color: #f56dac;
     color: white;
-    border-top: 1px solid #b7bcc1;
+   
 }
 #eraserButton:hover{
     background-color: #c6b6bd;
@@ -95,6 +95,7 @@ h2{
     margin-top: 15px;
     border-top: 1px solid #cbd5e1;
     padding-top: 10px;
+    border-bottom: 1px solid #cbd5e1;
 }
 .shapes button{
     background-color: #94a3b8;

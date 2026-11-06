@@ -14,7 +14,54 @@ function getCanvasPosition(event) {
     const y = (event.clientY - rect.top) * (canvas.height / rect.height);
     return { x, y };
 }
+class ShapeTool {
+    canvas;
+    ctx;
+    currentShape = null;
+    startX = 0;
+    startY = 0;
+    dragging = false;
+    snapshot = null;
+    constructor(canvas, ctx) {
+        this.canvas = canvas;
+        this.ctx = ctx;
+        const buttons = [
+            { id: "brushButton", tool: null },
+            { id: "rectangleButton", tool: "rectangle" },
+            { id: "circleButton", tool: "circle" },
+            { id: "lineButton", tool: "line" },
+            { id: "triangleButton", tool: "triangle" },
+        ];
+        buttons.forEach((item) => {
+            const button = document.getElementById(item.id);
+            button?.addEventListener("click", () => {
+                this.currentShape = item.tool;
+            });
+        });
+        this.canvas.addEventListener("pointerdown", (event) => this.start(event));
+        this.canvas.addEventListener("pointermove", (event) => this.move(event));
+        this.canvas.addEventListener("pointerup", (event) => this.finish(event));
+        this.canvas.addEventListener("pointercancel", (event) => this.cancel(event));
+    }
+    isActive() {
+        return this.currentShape !== null;
+    }
+    selectTool(shape) {
+        this.currentShape = shape;
+        isErasing = false;
+        eraserButton.classList.remove("active");
+    }
+    start(event) {
+        const position = getCanvasPosition(event);
+        this.startX = position.x;
+        this.startY = position.y;
+        this.dragging = true;
+        this.snapshot = this.ctx.getImageData(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.globalCompositeOperation = "source-over";
+    }
+}
 const eraserButton = document.getElementById("eraserButton");
+const shapeTool = new ShapeTool(canvas, ctx);
 eraserButton.addEventListener("click", () => {
     isErasing = !isErasing;
     eraserButton.classList.toggle("active", isErasing);
@@ -42,6 +89,8 @@ brushSize.addEventListener("input", () => {
     brushSizeValue.textContent = brushSize.value;
 });
 canvas.addEventListener("pointerdown", (event) => {
+    if (shapeTool.isActive())
+        return;
     isDrawing = true;
     if (isErasing) {
         ctx.globalCompositeOperation = "destination-out";
@@ -68,12 +117,15 @@ canvas.addEventListener("pointermove", (event) => {
 canvas.addEventListener("pointerup", () => {
     isDrawing = false;
 });
-canvas.addEventListener('pointercancel', () => {
+canvas.addEventListener("pointercancel", () => {
     isDrawing = false;
 });
 class DrawingApp {
     isDrawing = false;
     isErasing = false;
+    constructor() {
+        console.log("DrawingApp started");
+    }
     startDrawing() {
         this.isDrawing = true;
         console.log("Drawing start");
