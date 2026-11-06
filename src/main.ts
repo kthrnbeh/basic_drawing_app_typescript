@@ -92,3 +92,6 @@ class DrawingApp {
         console.log("Drawing stop");
     }
 }
+const app = new DrawingApp();
+app.startDrawing();
+app.stopDrawing();
