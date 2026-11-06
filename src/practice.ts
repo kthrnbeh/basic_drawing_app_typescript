@@ -16,3 +16,19 @@ function validateBrushSize(size:number):number{
 }
 return size;
 }
+async function runPractice(): Promise<void> {
+    const settings = await loadSettings();
+    console.log(settings);
+
+    try{
+        const size = validateBrushSize(60);
+        console.log("valid brush size", size);
+}
+catch(error) {
+    if (error instanceof Error) { 
+        console.log("error caught", error.message)
+
+    }
+
+}
+runPractice();
