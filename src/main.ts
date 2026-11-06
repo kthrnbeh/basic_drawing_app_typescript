@@ -133,7 +133,7 @@ class ShapeTool {
             case 'triangle':
                 this.ctx.moveTo(this.startX + width/2,this.startY);
                 this.ctx.lineTo(this.startX,y);
-                this.ctx.lineTo(x,y):
+                this.ctx.lineTo(x,y);
                 this.ctx.closePath();
                 break
         }
