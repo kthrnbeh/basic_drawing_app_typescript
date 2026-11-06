@@ -88,6 +88,26 @@ h2{
     margin-top: 0;
     padding-top: 30px;
 }
+.shapes {
+    display: flex;
+   flex-direction: column;
+    gap: 7px;
+    margin-top: 15px;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 10px;
+}
+.shapes button{
+    background-color: #94a3b8;
+}
+.shapes button.seleted{
+    background-color: #5d84b3;
+    color: white;
+}
+.shapes label{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 footer{
     text-align: center;
      color: #64748b;
