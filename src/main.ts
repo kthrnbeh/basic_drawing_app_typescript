@@ -200,6 +200,7 @@ canvas.addEventListener("pointerdown", (event) => {
 });
 
 canvas.addEventListener("pointermove", (event) => {
+    if(shapeTool.isActive())return;
     if (!isDrawing || event.buttons === 0) {
         isDrawing = false;
         return;
