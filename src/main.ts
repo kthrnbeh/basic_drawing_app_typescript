@@ -24,6 +24,27 @@ function getCanvasPosition(event: PointerEvent) {
     const y = (event.clientY - rect.top) * (canvas.height / rect.height);
     return { x, y };
 }
+const shapePickerButton = document.getElementById("shapePickerButton") as HTMLButtonElement;
+const shapePickerPanel = document.getElementById("shapePickerPanel") as HTMLDivElement;
+function openShapePicker(): void {
+    shapePickerPanel.classList.remove("hidden");
+}
+function closeShapePicker(): void{
+    shapePickerPanel.classList.add("hidden");
+}
+function toggleShapePicker(): void {
+    shapePickerPanel.classList.toggle("hidden");
+}
+shapePickerButton.addEventListener("click", (event)=> {
+    event.stopPropagation();
+    toggleShapePicker();
+});
+shapePickerPanel.addEventListener("click", (event)=>{
+    event.stopPropagation();
+});
+document.addEventListener("click",() => {
+    closeShapePicker();
+})
 
     function recordHistory():void {
         const snapshot =canvas.toDataURL("image/png");
@@ -100,7 +121,15 @@ function getCanvasPosition(event: PointerEvent) {
             
         }
     
-type shapeKind = "rectangle" | "circle" | "line" | "triangle";
+type shapeKind = |"rectangle" 
+| "circle" 
+| "line" 
+| "triangle" 
+| "oval"
+| "arrow"
+| "star"
+| "heart"
+| "hexagon";
 
 class ShapeTool {
     private currentShape: shapeKind | null = null;
@@ -119,12 +148,18 @@ class ShapeTool {
             { id: "circleButton", tool: "circle" },
             { id: "lineButton", tool: "line" },
             { id: "triangleButton", tool: "triangle" },
+            { id: "ovalButton", tool: "oval" },
+            { id: "arrowButton", tool: "arrow" },
+            { id: "starButton", tool: "star" },
+            { id: "heartButton", tool: "heart" },
+            { id: "hexagonButton", tool: "hexagon" },
         ];
 
         buttons.forEach((item) => {
             const button = document.getElementById(item.id);
             button?.addEventListener("click", () => {
                 this.selectTool(item.tool);
+                closeShapePicker();
             });
         });
 
