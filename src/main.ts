@@ -63,6 +63,12 @@ function getCanvasPosition(event: PointerEvent) {
         catch(error){
             console.error("AutoSave Fail", error);
         }
+        function scheduleAutoSave(): void{
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(()=>{
+                void autoSaveDrawing();
+            }, 500);
+        }
     }
   
 type shapeKind = "rectangle" | "circle" | "line" | "triangle";
