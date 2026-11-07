@@ -148,7 +148,16 @@ h2{
     font-size: 20px;
 
 }
-.shape-name{}
+.shape-name{
+    font-size:11px;
+}
+.shape-fill {
+    display:flex;
+    align-items: center;
+    gap:8px;
+    margin-top: 12px;
+    font-size:14px;
+}
  
 #undo{
     background-color: #94a3b8;
