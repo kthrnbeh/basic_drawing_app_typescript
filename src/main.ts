@@ -263,7 +263,105 @@ class ShapeTool {
                 this.ctx.lineTo(this.startX,y);
                 this.ctx.lineTo(x,y);
                 this.ctx.closePath();
-                break
+                break;
+             case "oval":
+        this.ctx.ellipse(
+            this.startX + width / 2,
+            this.startY + height / 2,
+            Math.abs(width / 2),
+            Math.abs(height / 2),
+            0,
+            0,
+            Math.PI * 2
+        );
+        break;
+
+    case "arrow":
+        const angle = Math.atan2(y - this.startY, x - this.startX);
+        const headLength = 18;
+
+        this.ctx.moveTo(this.startX, this.startY);
+        this.ctx.lineTo(x, y);
+
+        this.ctx.moveTo(x, y);
+        this.ctx.lineTo(
+            x - headLength * Math.cos(angle - Math.PI / 6),
+            y - headLength * Math.sin(angle - Math.PI / 6)
+        );
+
+        this.ctx.moveTo(x, y);
+        this.ctx.lineTo(
+            x - headLength * Math.cos(angle + Math.PI / 6),
+            y - headLength * Math.sin(angle + Math.PI / 6)
+        );
+        break;
+
+    case "star":
+        const starCenterX = this.startX + width / 2;
+        const starCenterY = this.startY + height / 2;
+        const outerRadius = Math.min(Math.abs(width), Math.abs(height)) / 2;
+        const innerRadius = outerRadius / 2.2;
+
+        for (let i = 0; i < 10; i++) {
+            const radius = i % 2 === 0 ? outerRadius : innerRadius;
+            const angle = (Math.PI / 5) * i - Math.PI / 2;
+            const pointX = starCenterX + radius * Math.cos(angle);
+            const pointY = starCenterY + radius * Math.sin(angle);
+
+            if (i === 0) {
+                this.ctx.moveTo(pointX, pointY);
+            } else {
+                this.ctx.lineTo(pointX, pointY);
+            }
+        }
+        this.ctx.closePath();
+        break;
+
+    case "heart":
+        const heartLeft = Math.min(this.startX, x);
+        const heartTop = Math.min(this.startY, y);
+        const heartWidth = Math.abs(width);
+        const heartHeight = Math.abs(height);
+
+        this.ctx.moveTo(heartLeft + heartWidth / 2, heartTop + heartHeight);
+        this.ctx.bezierCurveTo(
+            heartLeft + heartWidth,
+            heartTop + heartHeight * 0.75,
+            heartLeft + heartWidth,
+            heartTop + heartHeight * 0.25,
+            heartLeft + heartWidth / 2,
+            heartTop + heartHeight * 0.35
+        );
+        this.ctx.bezierCurveTo(
+            heartLeft,
+            heartTop + heartHeight * 0.25,
+            heartLeft,
+            heartTop + heartHeight * 0.75,
+            heartLeft + heartWidth / 2,
+            heartTop + heartHeight
+        );
+        this.ctx.closePath();
+        break;
+
+    case "hexagon":
+        const hexCenterX = this.startX + width / 2;
+        const hexCenterY = this.startY + height / 2;
+        const hexRadius = Math.min(Math.abs(width), Math.abs(height)) / 2;
+
+        for (let i = 0; i < 6; i++) {
+            const angle = (Math.PI / 3) * i - Math.PI / 6;
+            const pointX = hexCenterX + hexRadius * Math.cos(angle);
+            const pointY = hexCenterY + hexRadius * Math.sin(angle);
+
+            if (i === 0) {
+                this.ctx.moveTo(pointX, pointY);
+            } else {
+                this.ctx.lineTo(pointX, pointY);
+            }
+        }
+        this.ctx.closePath();
+        break;
+}
         }
         const fillShape = document.getElementById('fillShape')as HTMLInputElement;
 
