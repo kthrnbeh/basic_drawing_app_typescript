@@ -23,6 +23,8 @@ function getCanvasPosition(event: PointerEvent) {
     const x = (event.clientX - rect.left) * (canvas.width / rect.width);
     const y = (event.clientY - rect.top) * (canvas.height / rect.height);
     return { x, y };
+}
+
     function recordHistory():void {
         const snapshot =canvas.toDataURL("image/png");
         drawHistory.push(snapshot);
@@ -33,9 +35,9 @@ function getCanvasPosition(event: PointerEvent) {
     }
     function findPreviousDrawing(index:number, current:string): number{
         if (index <0){
-            return -1:
+            return -1;
         }
-        if (drawingHistory[index] !== current){
+        if (drawHistory[index] !== current){
             return index;
         }
         return findPreviousDrawing(index -1,current);
@@ -69,20 +71,20 @@ function getCanvasPosition(event: PointerEvent) {
                 void autoSaveDrawing();
             }, 500);
         } 
-        async funciton restoreDrawing(imageData:string):Promise<void> {
+        async function restoreDrawing(imageData:string):Promise<void> {
             const image =new Image();
-            Image.src=imageData;
+            image.src=imageData;
             await image.decode();
-            ctx.save();
-            ctx.globalCompositeOperation ="source-over";
-            ctx.clearRect(0,0, canvas.width, canvas.height);
-            ctx.drawImage(image,0,0,canvas.width,canvas.height);
-            ctx.restore();
+            ctx!.save();
+            ctx!.globalCompositeOperation ="source-over";
+            ctx!.clearRect(0,0, canvas.width, canvas.height);
+            ctx!.drawImage(image,0,0,canvas.width,canvas.height);
+            ctx!.restore();
 
         }
     
     }
-  
+
 type shapeKind = "rectangle" | "circle" | "line" | "triangle";
 
 class ShapeTool {
