@@ -338,19 +338,11 @@ const app = new DrawingApp();
 app.startDrawing();
 app.stopDrawing();
 
-async function initailizeDrawing(): Promise<void>{
-    try{
-        const savedImage=localStorage.getItem(storageKey);
-        if (savedImage){
-            await restoreDrawing(savedImage);
-            console.log("previous image restored");
-        }
-    } catch (error){
-            console.log("Drawing not restored.",error);
-    }
-        recordHistory();
-    }
-void initailizeDrawing();
+function initializeDrawing():void{
+    ctx?.clearRect(0,0,canvas.width,canvas.height);
+    recordHistory();
+}
+initializeDrawing();
 const previousButton=document.getElementById("previous") as HTMLButtonElement;
 previousButton.addEventListener("click",async ()=>{
     const savedImage=localStorage.getItem(storageKey);
