@@ -351,3 +351,20 @@ async function initailizeDrawing(): Promise<void>{
         recordHistory();
     }
 void initailizeDrawing();
+const previousButton=document.getElementById("previous") as HTMLButtonElement;
+previousButton.addEventListener("click",async ()=>{
+    const savedImage=localStorage.getItem(storageKey);
+    if(!savedImage){
+        alert("No previous drawing found.");
+        return;
+    }
+    try{
+        recordHistory();
+        await restoreDrawing(savedImage);
+        recordHistory();
+            console.log("Previous picture restored.")
+    }catch(error){
+        console.error("Couldn't restore picture.",error);
+        alert("Problem getting previous drawing.")
+    }
+});
