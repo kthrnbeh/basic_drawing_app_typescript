@@ -178,7 +178,15 @@ class ShapeTool {
         isDrawing = false;
         isErasing = false;
         eraserButton.classList.remove("active");
-        const buttons =['brush','rectangle','circle','line','triangle'];
+        const buttons =['brush',
+            'rectangle',
+            'circle',
+            'line',
+            'triangle',
+            "oval",
+            "arrow",
+            "star",
+            "heart",];
 
         buttons.forEach((name)=>{
             const button= document.getElementById(name +'Button');
