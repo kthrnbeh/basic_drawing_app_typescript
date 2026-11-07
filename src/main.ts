@@ -249,8 +249,9 @@ clearButton.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     const undoButton =document.getElementById("undo") as HTMLAnchorElement;
     undoButton.addEventListener("click", () =>{
-        void undoDrawing();
-    });
+        void undoDrawing(); });
+    recordHistory();
+    scheduleAutoSave();
 });
 
 const saveButton = document.getElementById("saveButton") as HTMLButtonElement;
