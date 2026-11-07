@@ -340,7 +340,7 @@ app.stopDrawing();
 
 async function initailizeDrawing(): Promise<void>{
     try{
-        const savedImage=localStorage.getItems(storageKey);
+        const savedImage=localStorage.getItem(storageKey);
         if (savedImage){
             await restoreDrawing(savedImage);
             console.log("previous image restored");
