@@ -29,6 +29,16 @@ function getCanvasPosition(event: PointerEvent) {
         if(drawHistory.length >maxHistory){
             drawHistory.shift();
         }
+
+    }
+    function findPreviousDrawing(index:number, current:string): number{
+        if (index <0){
+            return -1:
+        }
+        if (drawingHistory[index] !== current){
+            return index;
+        }
+        return findPreviousDrawing(index -1,current);
     }
 }
 
