@@ -362,7 +362,6 @@ class ShapeTool {
         this.ctx.closePath();
         break;
 }
-        }
         const fillShape = document.getElementById('fillShape')as HTMLInputElement;
 
         if (fillShape.checked && this.currentShape !== "line"){
