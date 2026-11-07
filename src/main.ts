@@ -82,6 +82,21 @@ function getCanvasPosition(event: PointerEvent) {
             ctx!.restore();
 
         }
+        async function undoDrawing(): Promise<void>{
+            if(drawHistory.length <2) return;
+            const current =drawHistory.pop()!;
+            const previousIndex= findPreviousDrawing(
+                drawHistory.length -1, current
+            );
+            if (previousIndex <0){
+                drawHistory.push(current);
+                return;
+            }
+            drawHistory.length =previousIndex +1;
+            await restoreDrawing(drawHistory[previousIndex]!);
+            scheduleAutoSave();
+            
+        }
     
     }
 
