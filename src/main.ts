@@ -39,9 +39,20 @@ function getCanvasPosition(event: PointerEvent) {
             return index;
         }
         return findPreviousDrawing(index -1,current);
-    }
-}
-
+    } async function autoSaveDrawing(): Promise<void> {
+    try {
+        const blob = await new Promise<Blob>((resolve, reject) => {
+            canvas.toBlob((result) => {
+                if (result) {
+                    resolve(result);
+                } else {
+                    reject(new Error("Could not create image"));
+                }
+            }, "image/png");
+        });
+    
+        }
+  
 type shapeKind = "rectangle" | "circle" | "line" | "triangle";
 
 class ShapeTool {
