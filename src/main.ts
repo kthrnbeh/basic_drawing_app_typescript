@@ -17,11 +17,19 @@ const maxHistory:number =25;
 const storageKey:string = "create-saved-drawing";
 let autoSaveTimer: ReturnType <typeof setTimeout> |undefined;
 
+
 function getCanvasPosition(event: PointerEvent) {
     const rect = canvas.getBoundingClientRect();
     const x = (event.clientX - rect.left) * (canvas.width / rect.width);
     const y = (event.clientY - rect.top) * (canvas.height / rect.height);
     return { x, y };
+    function recordHistory():void {
+        const snapshot =canvas.toDataURL("image/png");
+        drawHistory.push(snapshot);
+        if(drawHistory.length >maxHistory){
+            drawHistory.shift();
+        }
+    }
 }
 
 type shapeKind = "rectangle" | "circle" | "line" | "triangle";
