@@ -6,7 +6,7 @@ The software that this typescript is for is a drawing webpage with color, brush 
 
 The Joy of a drawing page is that you can doodle, I can recall all the times I as a kid pulled up a paint on my computer. I wanted to see how it was created, and found it facinating, especailly all the work it takes to just make shapes, and for them to be filled. That was amazing. 
 
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
+
 
 [Software Demo Video](http://youtube.link.goes.here)
 
@@ -24,8 +24,8 @@ The Joy of a drawing page is that you can doodle, I can recall all the times I a
 
 # Future Work
 
-
-
-- Item 1
-- Item 2
-- Item 3
+- Add an Eyedropper Tool: Allow users to select an existing color from their drawing and use it again.
+- Add Drawing Templates: Provide outlines, coloring pages, and starting designs that users can customize.
+- Add an Animation Feature: Allow users to create multiple drawing frames and play them in sequence to make simple animations.
+-zoom out to see their entire picture.
+-Add Background Colors: Allow users to change the canvas background instead of always using white.
