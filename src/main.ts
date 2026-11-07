@@ -277,6 +277,8 @@ brushSize.addEventListener("input", () => {
 canvas.addEventListener("pointerdown", (event) => {
     if (shapeTool.isActive()) return;
     isDrawing = true;
+    if(event.button !== 0)return;
+    canvas.setPointerCapture(event.pointerId);
     if (isErasing) {
         ctx.globalCompositeOperation = "destination-out";
     } else {
