@@ -219,12 +219,12 @@ eraserButton.addEventListener("click", () => {
 const clearButton = document.getElementById("clearButton");
 clearButton.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const undoButton = document.getElementById("undo");
-    undoButton.addEventListener("click", () => {
-        void undoDrawing();
-    });
     recordHistory();
     scheduleAutoSave();
+});
+const undoButton = document.getElementById("undo");
+undoButton.addEventListener("click", () => {
+    void undoDrawing();
 });
 const saveButton = document.getElementById("saveButton");
 saveButton.addEventListener("click", () => {
@@ -303,7 +303,7 @@ app.startDrawing();
 app.stopDrawing();
 async function initailizeDrawing() {
     try {
-        const savedImage = localStorage.getItems(storageKey);
+        const savedImage = localStorage.getItem(storageKey);
         if (savedImage) {
             await restoreDrawing(savedImage);
             console.log("previous image restored");
@@ -315,5 +315,23 @@ async function initailizeDrawing() {
     recordHistory();
 }
 void initailizeDrawing();
+const previousButton = document.getElementById("previous");
+previousButton.addEventListener("click", async () => {
+    const savedImage = localStorage.getItem(storageKey);
+    if (!savedImage) {
+        alert("No previous drawing found.");
+        return;
+    }
+    try {
+        recordHistory();
+        await restoreDrawing(savedImage);
+        recordHistory();
+        console.log("Previous picture restored.");
+    }
+    catch (error) {
+        console.error("Couldn't restore picture.", error);
+        alert("Problem getting previous drawing.");
+    }
+});
 export {};
 //# sourceMappingURL=main.js.map
