@@ -301,20 +301,11 @@ class DrawingApp {
 const app = new DrawingApp();
 app.startDrawing();
 app.stopDrawing();
-async function initailizeDrawing() {
-    try {
-        const savedImage = localStorage.getItem(storageKey);
-        if (savedImage) {
-            await restoreDrawing(savedImage);
-            console.log("previous image restored");
-        }
-    }
-    catch (error) {
-        console.log("Drawing not restored.", error);
-    }
+function initializeDrawing() {
+    ctx?.clearRect(0, 0, canvas.width, canvas.height);
     recordHistory();
 }
-void initailizeDrawing();
+initializeDrawing();
 const previousButton = document.getElementById("previous");
 previousButton.addEventListener("click", async () => {
     const savedImage = localStorage.getItem(storageKey);
