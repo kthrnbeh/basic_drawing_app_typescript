@@ -68,7 +68,19 @@ function getCanvasPosition(event: PointerEvent) {
             autoSaveTimer = setTimeout(()=>{
                 void autoSaveDrawing();
             }, 500);
+        } 
+        async funciton restoreDrawing(imageData:string):Promise<void> {
+            const image =new Image();
+            Image.src=imageData;
+            await image.decode();
+            ctx.save();
+            ctx.globalCompositeOperation ="source-over";
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            ctx.drawImage(image,0,0,canvas.width,canvas.height);
+            ctx.restore();
+
         }
+    
     }
   
 type shapeKind = "rectangle" | "circle" | "line" | "triangle";
