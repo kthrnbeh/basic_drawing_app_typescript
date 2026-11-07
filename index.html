@@ -23,7 +23,63 @@
            <label for="brushSize"> Brush size:</label> 
            <input type="range" id="brushSize" min="1" max="50" value="5">
             <span id="brushSizeValue"></span>
+            <div class="shapes">
+                <h2>Shapes</h2>
+                <button id="shapePickerButton" type="button">Shapes ▾</button>
+                <div class="shapes-grid">
+                    <button id="brushButton" class="shape-option" type="button" title="Brush">
+                        <span class="shape-icon">✏️</span>
+                        <span class="shape-name">brush</span>
+                    </button>
+                    <button id="rectangleButton" class="shape-option" type="button" title="Rectangle">
+                <span class="shape-icon">▭</span>
+                <span class="shape-name">Rectangle</span>
+            </button>
 
+            <button id="circleButton" class="shape-option" type="button" title="Circle">
+                <span class="shape-icon">◯</span>
+                <span class="shape-name">Circle</span>
+            </button>
+
+            <button id="lineButton" class="shape-option" type="button" title="Line">
+                <span class="shape-icon">／</span>
+                <span class="shape-name">Line</span>
+            </button>
+
+            <button id="triangleButton" class="shape-option" type="button" title="Triangle">
+                <span class="shape-icon">△</span>
+                <span class="shape-name">Triangle</span>
+            </button>
+
+            <button id="ovalButton" class="shape-option" type="button" title="Oval">
+                <span class="shape-icon">⬭</span>
+                <span class="shape-name">Oval</span>
+            </button>
+
+            <button id="arrowButton" class="shape-option" type="button" title="Arrow">
+                <span class="shape-icon">➜</span>
+                <span class="shape-name">Arrow</span>
+            </button>
+
+            <button id="starButton" class="shape-option" type="button" title="Star">
+                <span class="shape-icon">★</span>
+                <span class="shape-name">Star</span>
+            </button>
+
+            <button id="heartButton" class="shape-option" type="button" title="Heart">
+                <span class="shape-icon">♥</span>
+                <span class="shape-name">Heart</span>
+            </button>
+
+            <button id="hexagonButton" class="shape-option" type="button" title="Hexagon">
+                <span class="shape-icon">⬡</span>
+                <span class="shape-name">Hexagon</span>
+            </button>
+            <label class="shape-fill" for="fillShape">
+                <input type="checkbox" id="fillshape">🪣
+            </label>
+                </div>
+            </div>
             <button id ="undo">UNDO</button>
             <button id ="eraserButton">Eraser</button>
             <button id="clearButton">Clear</button>
