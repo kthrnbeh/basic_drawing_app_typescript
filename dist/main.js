@@ -8,11 +8,85 @@ ctx.lineCap = "round";
 ctx.lineJoin = "round";
 let isDrawing = false;
 let isErasing = false;
+const drawHistory = [];
+const maxHistory = 25;
+const storageKey = "create-saved-drawing";
+let autoSaveTimer;
 function getCanvasPosition(event) {
     const rect = canvas.getBoundingClientRect();
     const x = (event.clientX - rect.left) * (canvas.width / rect.width);
     const y = (event.clientY - rect.top) * (canvas.height / rect.height);
     return { x, y };
+}
+function recordHistory() {
+    const snapshot = canvas.toDataURL("image/png");
+    drawHistory.push(snapshot);
+    if (drawHistory.length > maxHistory) {
+        drawHistory.shift();
+    }
+}
+function findPreviousDrawing(index, current) {
+    if (index < 0) {
+        return -1;
+    }
+    if (drawHistory[index] !== current) {
+        return index;
+    }
+    return findPreviousDrawing(index - 1, current);
+}
+async function autoSaveDrawing() {
+    try {
+        const blob = await new Promise((resolve, reject) => {
+            canvas.toBlob((result) => {
+                if (result) {
+                    resolve(result);
+                }
+                else {
+                    reject(new Error("Could not create image"));
+                }
+            }, "image/png");
+        });
+        const image = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => reject(new Error("could not get image"));
+            reader.readAsDataURL(blob);
+        });
+        localStorage.setItem(storageKey, image);
+        console.log("Auto-Saved");
+    }
+    catch (error) {
+        console.error("AutoSave Fail", error);
+    }
+}
+function scheduleAutoSave() {
+    clearTimeout(autoSaveTimer);
+    autoSaveTimer = setTimeout(() => {
+        void autoSaveDrawing();
+    }, 500);
+}
+async function restoreDrawing(imageData) {
+    const image = new Image();
+    image.src = imageData;
+    await image.decode();
+    ctx.save();
+    ctx.globalCompositeOperation = "source-over";
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    ctx.restore();
+}
+async function undoDrawing() {
+    if (drawHistory.length < 2)
+        return;
+    const current = drawHistory.pop();
+    const previousIndex = findPreviousDrawing(drawHistory.length - 1, current);
+    if (previousIndex < 0) {
+        drawHistory.push(current);
+        return;
+    }
+    drawHistory.length = previousIndex + 1;
+    await restoreDrawing(drawHistory[previousIndex]);
+    scheduleAutoSave();
 }
 class ShapeTool {
     canvas;
@@ -145,6 +219,12 @@ eraserButton.addEventListener("click", () => {
 const clearButton = document.getElementById("clearButton");
 clearButton.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const undoButton = document.getElementById("undo");
+    undoButton.addEventListener("click", () => {
+        void undoDrawing();
+    });
+    recordHistory();
+    scheduleAutoSave();
 });
 const saveButton = document.getElementById("saveButton");
 saveButton.addEventListener("click", () => {
@@ -168,6 +248,9 @@ canvas.addEventListener("pointerdown", (event) => {
     if (shapeTool.isActive())
         return;
     isDrawing = true;
+    if (event.button !== 0)
+        return;
+    canvas.setPointerCapture(event.pointerId);
     if (isErasing) {
         ctx.globalCompositeOperation = "destination-out";
     }
@@ -194,6 +277,8 @@ canvas.addEventListener("pointermove", (event) => {
 });
 canvas.addEventListener("pointerup", () => {
     isDrawing = false;
+    recordHistory();
+    scheduleAutoSave();
 });
 canvas.addEventListener("pointercancel", () => {
     isDrawing = false;
@@ -216,5 +301,19 @@ class DrawingApp {
 const app = new DrawingApp();
 app.startDrawing();
 app.stopDrawing();
+async function initailizeDrawing() {
+    try {
+        const savedImage = localStorage.getItems(storageKey);
+        if (savedImage) {
+            await restoreDrawing(savedImage);
+            console.log("previous image restored");
+        }
+    }
+    catch (error) {
+        console.log("Drawing not restored.", error);
+    }
+    recordHistory();
+}
+void initailizeDrawing();
 export {};
 //# sourceMappingURL=main.js.map
