@@ -50,8 +50,20 @@ function getCanvasPosition(event: PointerEvent) {
                 }
             }, "image/png");
         });
-    
+        const image = await new Promise<string>((resolve,reject)=>{
+            const reader = new FileReader();
+
+            reader.onload =() => resolve(reader.result as string);
+            reader.onerror =() => reject(new Error ("could not get image"));
+            reader.readAsDataURL(blob);
+        });
+        localStorage.setItem(storageKey,image);
+        console.log("Auto-Saved");
         }
+        catch(error){
+            console.error("AutoSave Fail", error);
+        }
+    }
   
 type shapeKind = "rectangle" | "circle" | "line" | "triangle";
 
