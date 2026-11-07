@@ -178,7 +178,8 @@ class ShapeTool {
         isDrawing = false;
         isErasing = false;
         eraserButton.classList.remove("active");
-        const buttons =['brush',
+        const buttons =[
+            'brush',
             'rectangle',
             'circle',
             'line',
@@ -193,6 +194,8 @@ class ShapeTool {
             button?.classList.toggle("selected", name===(shape ?? 'brush'));
 
         });
+        const selectedShapeName = shape === null ?"Brush" : shape.charAt(0).toUpperCase() + shape.slice(1);
+        shapePickerButton.textContent = 'Shapes: ${selectedShapeName} ▾';
     }
 
     private start(event: PointerEvent): void {
