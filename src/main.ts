@@ -65,6 +65,8 @@ function getCanvasPosition(event: PointerEvent) {
         catch(error){
             console.error("AutoSave Fail", error);
         }
+    }
+
         function scheduleAutoSave(): void{
             clearTimeout(autoSaveTimer);
             autoSaveTimer = setTimeout(()=>{
@@ -98,8 +100,6 @@ function getCanvasPosition(event: PointerEvent) {
             
         }
     
-    }
-
 type shapeKind = "rectangle" | "circle" | "line" | "triangle";
 
 class ShapeTool {
@@ -247,6 +247,10 @@ eraserButton.addEventListener("click", () => {
 const clearButton = document.getElementById("clearButton") as HTMLButtonElement;
 clearButton.addEventListener("click", () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const undoButton =document.getElementById("undo") as HTMLAnchorElement;
+    undoButton.addEventListener("click", () =>{
+        void undoDrawing();
+    });
 });
 
 const saveButton = document.getElementById("saveButton") as HTMLButtonElement;
@@ -299,6 +303,8 @@ canvas.addEventListener("pointermove", (event) => {
 
 canvas.addEventListener("pointerup", () => {
     isDrawing = false;
+    recordHistory();
+    scheduleAutoSave();
 });
 
 canvas.addEventListener("pointercancel", () => {
