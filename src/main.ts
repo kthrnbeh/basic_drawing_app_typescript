@@ -12,6 +12,11 @@ ctx.lineJoin = "round";
 let isDrawing: boolean = false;
 let isErasing: boolean = false;
 
+const drawHistory: string[] =[];
+const maxHistory:number =25;
+const storageKey:string = "create-saved-drawing";
+let autoSaveTimer: ReturnType <typeof setTimeout> |undefined;
+
 function getCanvasPosition(event: PointerEvent) {
     const rect = canvas.getBoundingClientRect();
     const x = (event.clientX - rect.left) * (canvas.width / rect.width);
