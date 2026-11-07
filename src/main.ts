@@ -93,7 +93,7 @@ document.addEventListener("click",() => {
             autoSaveTimer = setTimeout(()=>{
                 void autoSaveDrawing();
             }, 500);
-        } 
+        }
         async function restoreDrawing(imageData:string):Promise<void> {
             const image =new Image();
             image.src=imageData;
@@ -364,10 +364,10 @@ class ShapeTool {
 }
         const fillShape = document.getElementById('fillShape')as HTMLInputElement;
 
-        if (fillShape.checked && this.currentShape !== "line"){
+        if (fillShape.checked && this.currentShape !== "line" && this.currentShape !== "arrow"){
             this.ctx.fill();
         }
-        else{
+         else {
             this.ctx.stroke();
         }
         this.ctx.restore();
