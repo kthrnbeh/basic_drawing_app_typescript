@@ -336,3 +336,17 @@ class DrawingApp {
 const app = new DrawingApp();
 app.startDrawing();
 app.stopDrawing();
+
+async function initailizeDrawing(): Promise<void>{
+    try{
+        const savedImage=localStorage.getItems(storageKey);
+        if (savedImage){
+            await restoreDrawing(savedImage);
+            console.log("previous image restored");
+        }
+    } catch (error){
+            console.log("Drawing not restored.",error);
+    }
+        recordHistory();
+    }
+void initailizeDrawing();
