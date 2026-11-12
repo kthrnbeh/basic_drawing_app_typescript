@@ -195,7 +195,7 @@ class ShapeTool {
 
         });
         const selectedShapeName = shape === null ?"Brush" : shape.charAt(0).toUpperCase() + shape.slice(1);
-        shapePickerButton.textContent = 'Shapes: ${selectedShapeName} ▾';
+        shapePickerButton.textContent = `Shapes: ${selectedShapeName} ▾`;
     }
 
     private start(event: PointerEvent): void {

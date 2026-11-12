@@ -124,7 +124,7 @@ h2{
 .shape-grid{
     display:grid;
     grid-template-columns: repeat(3,1fr);
-    gap: 5px;px;
+    gap: 5px;
 }
 .shape-option {
     display:flex;
