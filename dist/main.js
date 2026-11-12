@@ -318,9 +318,9 @@ eraserButton.addEventListener("click", () => {
 });
 const clearButton = document.getElementById("clearButton");
 clearButton.addEventListener("click", () => {
+    clearTimeout(autoSaveTimer);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     recordHistory();
-    scheduleAutoSave();
 });
 const undoButton = document.getElementById("undo");
 undoButton.addEventListener("click", () => {
