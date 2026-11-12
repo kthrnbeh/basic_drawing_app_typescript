@@ -520,3 +520,18 @@ const previousSong = document.getElementById("previousSong") as HTMLButtonElemen
 const nextSong = document.getElementById("nextSong") as HTMLButtonElement;
 const songName = document.getElementById("songName") as HTMLParagraphElement;
 const musicVolume = document.getElementById("musicVolume") as HTMLInputElement;
+playMusic.addEventListener("click",async() =>{
+    if(audio.paused){
+        try { 
+            await audio.play();
+            playMusic.textContent ="⏸"
+        }
+        catch(error){
+            console.error("Music didn't play",error);
+        }
+        else{
+            audio.pause():
+            playMusic.textContent= "▶";
+        }
+    }
+});
