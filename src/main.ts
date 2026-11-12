@@ -391,9 +391,10 @@ eraserButton.addEventListener("click", () => {
 
 const clearButton = document.getElementById("clearButton") as HTMLButtonElement;
 clearButton.addEventListener("click", () => {
+    clearTimeout(autoSaveTimer);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     recordHistory();
-    scheduleAutoSave();});
+   });
 const undoButton =document.getElementById("undo") as HTMLAnchorElement;
     undoButton.addEventListener("click", () =>{
         void undoDrawing(); });
