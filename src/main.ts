@@ -529,9 +529,9 @@ playMusic.addEventListener("click",async() =>{
         catch(error){
             console.error("Music didn't play",error);
         }
-        else{
-            audio.pause():
+     }    else{
+            audio.pause();
             playMusic.textContent= "▶";
         }
-    }
+   
 });
