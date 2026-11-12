@@ -481,6 +481,7 @@ musicVolume.addEventListener('input', () => {
 });
 const traceUpload = document.getElementById("traceUpload");
 const traceGuide = document.getElementById("traceGuide");
+const removeTrace = document.getElementById("removeTrace");
 let traceURL = null;
 traceUpload.addEventListener("change", () => {
     const file = traceUpload.files?.[0];
@@ -490,12 +491,21 @@ traceUpload.addEventListener("change", () => {
         alert("No image file selected.");
         return;
     }
-    if (traceURL == null) {
+    if (traceURL !== null) {
         URL.revokeObjectURL(traceURL);
     }
     traceURL = URL.createObjectURL(file);
     traceGuide.src = traceURL;
     traceGuide.hidden = false;
+    removeTrace.addEventListener("click", () => {
+        traceGuide.hidden = true;
+        traceGuide.removeAttribute("src");
+        traceUpload.value = "";
+        if (traceURL !== null) {
+            URL.revokeObjectURL(traceURL);
+            traceURL == null;
+        }
+    });
 });
 export {};
 //# sourceMappingURL=main.js.map
