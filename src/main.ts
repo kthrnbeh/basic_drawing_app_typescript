@@ -535,3 +535,24 @@ playMusic.addEventListener("click",async() =>{
         }
    
 });
+function changeSong(direction:number):void{
+    const wasPlaying =!audio.paused;
+    currentSong=(currentSong + direction +songs.length)% songs.length;
+    audio.src = songs[currentSong];
+    songName.textContent = `Song ${currentSong +1}`;
+    if (wasPlaying){
+        void audio.play().catch((error)=>{
+           console.error("Music didn't play:",error)
+         playMusic.textContent = "▶";});
+    }else{
+        playMusic.textContent="▶";
+    }
+}
+nextSong.addEventListener('click',()=>{
+changeSong(1)});
+previousSong.addEventListener('click',()=>{
+changeSong(-1)});
+audio.addEventListener('ended',()=>{
+changeSong(1)});
+musicVolume.addEventListener('input',()=>{
+audio.volume = Number(musicVolume.value)/100;});
