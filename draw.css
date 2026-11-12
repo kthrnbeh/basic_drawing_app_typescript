@@ -35,6 +35,7 @@ section.tools{
 }
 section.drawing-area{
     background-color: #f1f5f9;
+    min-width: 0;
 }
 #eraserButton{
     background-color: #f56dac;
@@ -217,7 +218,7 @@ h3{
 }
 .canvas-stack{
     position: relative;
-    width: fit-content;
+    width: 100%;
     max-width: 100%;
     margin: 0 auto;
     box-shadow: 0 3px 12px rgba(30,41,59,0.08);
@@ -259,7 +260,7 @@ footer{
     text-align: center;
      color: #64748b;
      margin-top: 25px;
-};
+}
 @media screen and (max-width: 960px){
     .layout{
         grid-template-columns: 190px minmax(0,1fr);
@@ -272,7 +273,7 @@ footer{
     
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width:760px) {
     body{
         padding: 10px;
     }
@@ -295,6 +296,7 @@ footer{
         width: 100%;
         height: auto;
         box-sizing: border-box;
+        max-width: 100%;
     }
     .container{
         flex-wrap: wrap;
