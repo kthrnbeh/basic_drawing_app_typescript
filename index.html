@@ -31,8 +31,6 @@
 
         </div>
             <h2>Tools</h2>
-            
-
             <label for="colorPicker">Brush Color:</label>
             <input type="color" id="colorPicker" value="#000000">
            <label for="brushSize"> Brush size:</label> 
@@ -97,17 +95,27 @@
                 <input type="checkbox" id="fillShape">🪣
             </label>
                 
+            </div> 
+            <div class="tracing-tools">
+                <input type="file" id="traceUpload" accept ="image/">
+
             </div>
-            <button id ="undo">UNDO</button>
-            <button id ="eraserButton">Eraser</button>
-            <button id="clearButton">Clear</button>
-            <button id="previous">Previous</button>
             <button id="saveButton">+</button>
 
         </section>
         <section class="drawing-area">
             <h2>Drawing Area</h2>
+            <div class="canvas-stack">
             <canvas id="drawingCanvas" width="800" height="500"></canvas>
+            <img id="traceGuide" alt="Tracing reference" hidden>
+        </div>
+         <div class = "container">
+            <button id ="undo">UNDO</button>
+            <button id ="eraserButton">Eraser</button>
+            <button id="clearButton">Clear</button>
+            <button id="previous">Previous</button>
+           
+            </div>
         </section>
        
     </main>

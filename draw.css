@@ -159,8 +159,12 @@ h2{
     margin-top: 12px;
     font-size:14px;
 }
- 
+.container{
+    display: flex;
+    justify-content:space-evenly ;
+}
 #undo{
+
     background-color: #94a3b8;
     color:white;
 
@@ -210,6 +214,24 @@ h3{
 #musicVolume{
     width:100%;
    
+}
+.canvas-stack{
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto;
+}
+#traceGuide{
+    position:absolute;
+    top:2px;
+    left: 2px;
+    width:calc(100%-4px);
+    object-fit: contain;
+    opacity: 0.3;
+    pointer-events: none;
+}
+#traceGuide[hidden]{
+    display:none;
 }
 footer{
     text-align: center;
