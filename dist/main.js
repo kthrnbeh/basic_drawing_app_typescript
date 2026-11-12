@@ -479,5 +479,23 @@ audio.addEventListener('ended', () => {
 musicVolume.addEventListener('input', () => {
     audio.volume = Number(musicVolume.value) / 100;
 });
+const traceUpload = document.getElementById("traceUpload");
+const traceGuide = document.getElementById("traceGuide");
+let traceURL = null;
+traceUpload.addEventListener("change", () => {
+    const file = traceUpload.files?.[0];
+    if (!file)
+        return;
+    if (!file.type.startsWith("image/")) {
+        alert("No image file selected.");
+        return;
+    }
+    if (traceURL == null) {
+        URL.revokeObjectURL(traceURL);
+    }
+    traceURL = URL.createObjectURL(file);
+    traceGuide.src = traceURL;
+    traceGuide.hidden = false;
+});
 export {};
 //# sourceMappingURL=main.js.map
