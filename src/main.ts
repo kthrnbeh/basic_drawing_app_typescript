@@ -574,6 +574,16 @@ traceUpload.addEventListener("change",()=> {
     traceURL=URL.createObjectURL(file);
     traceGuide.src =traceURL;
     traceGuide.hidden=false;
+    removeTrace.addEventListener("click", ()=>{
+        traceGuide.hidden =true;
+        traceGuide.removeAttribute("src");
+        traceUpload.value="";
+
+        if(traceURL !== null){
+            URL.revokeObjectURL(traceURL);
+            traceURL == null
+        }
+    })
 
 })
 
