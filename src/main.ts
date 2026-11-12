@@ -560,3 +560,6 @@ audio.volume = Number(musicVolume.value)/100;});
 const traceUpload = document.getElementById("traceUpload") as HTMLInputElement;
 const traceGuide = document.getElementById("traceGuide") as HTMLImageElement;
 let traceURL:string | null =null;
+traceUpload.addEventListener("change",()=> {
+    const file =traceUpload.files?.[0];
+})
