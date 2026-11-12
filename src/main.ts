@@ -538,7 +538,7 @@ playMusic.addEventListener("click",async() =>{
 function changeSong(direction:number):void{
     const wasPlaying =!audio.paused;
     currentSong=(currentSong + direction +songs.length)% songs.length;
-    audio.src = songs[currentSong];
+    audio.src = songs[currentSong]!;
     songName.textContent = `Song ${currentSong +1}`;
     if (wasPlaying){
         void audio.play().catch((error)=>{
