@@ -234,6 +234,26 @@ h3{
 #traceGuide[hidden]{
     display:none;
 }
+.tracing-tools{
+    display: flex;
+    align-items:center;
+}
+#traceUpload{
+    min-width:0;
+    flex:1;
+}
+#removeTrace{
+    background-color: #f56dac;
+    color: white;
+    padding:4px 8px;
+    margin: 2px;
+    font-size: 5px;
+    flex-shrink: 0;
+
+}
+#removeTrace:hover{
+    background-color: #d94b88;
+}
 footer{
     text-align: center;
      color: #64748b;
