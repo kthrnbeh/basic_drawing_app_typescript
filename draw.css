@@ -179,6 +179,13 @@ h2{
     background-color: #5d84b3;
     color: white;
 }
+.music-player{
+    border-top:1px solid blueviolet;
+    padding: top 12px;
+    margin-top: 12px;
+    text-align: center;
+}
+#songName{}
 footer{
     text-align: center;
      color: #64748b;
