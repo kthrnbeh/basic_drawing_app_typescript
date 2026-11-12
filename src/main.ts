@@ -187,7 +187,8 @@ class ShapeTool {
             "oval",
             "arrow",
             "star",
-            "heart",];
+            "heart",
+            "hexagon"];
 
         buttons.forEach((name)=>{
             const button= document.getElementById(name +'Button');
