@@ -506,3 +506,17 @@ previousButton.addEventListener("click",async ()=>{
         alert("Problem getting previous drawing.")
     }
 });
+const songs:string[]=[
+    "./music/song1.mp3",
+    "./music/song2.mp3",
+    "./music/song3.mp3",
+
+];
+let currentSong: number =0;
+const audio = new Audio(songs[currentSong])
+audio.volume=0.4;
+const playMusic = document.getElementById("playMusic") as HTMLButtonElement;
+const previousSong = document.getElementById("previousSong") as HTMLButtonElement;
+const nextSong = document.getElementById("nextSong") as HTMLButtonElement;
+const songName = document.getElementById("songName") as HTMLParagraphElement;
+const musicVolume = document.getElementById("musicVolume") as HTMLInputElement;
