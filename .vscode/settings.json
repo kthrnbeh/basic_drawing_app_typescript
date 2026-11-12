@@ -8,5 +8,6 @@
   "editor.suggest.showWords": true,
   "github.copilot.enable": {
     "*": true
-  }
+  },
+  "js/ts.tsdk.path": "node_modules\\typescript"
 }
