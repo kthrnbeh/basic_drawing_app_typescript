@@ -185,7 +185,24 @@ h2{
     margin-top: 12px;
     text-align: center;
 }
-#songName{}
+#songName{ 
+    font-size: 12px;
+    color:blue;
+}
+.music-controls{
+    display:flex;
+    justify-content:center;
+    gap:5px;
+}
+.music-controls button{
+    background-color: #5d84b3;
+    color:white;
+    padding:8px 12px;
+    margin:0;
+}
+#musicVolume{
+    width:100%;
+}
 footer{
     text-align: center;
      color: #64748b;
