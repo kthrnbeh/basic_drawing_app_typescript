@@ -29,3 +29,4 @@ The Joy of a drawing page is that you can doodle, I can recall all the times I a
 - Add an Animation Feature: Allow users to create multiple drawing frames and play them in sequence to make simple animations.
 -zoom out to see their entire picture.
 -Add Background Colors: Allow users to change the canvas background instead of always using white.
+-Really want to make more tracing features, like occupancy levels, and size increase and zoom on the tracing. 

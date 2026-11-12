@@ -1,17 +1,21 @@
+//Get the html canvas, and set up drawing tools.
 const canvas = document.getElementById("drawingCanvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d");
-
+//stop if there is an error if the browser can't find
+//the drawing content.
 if (!ctx) {
     throw new Error("Failed to get 2D context");
 }
-
+//purpose is for the look of the drawing line. 
 ctx.lineWidth = 5;
 ctx.lineCap = "round";
 ctx.lineJoin = "round";
-
+//the purpose of these booleans keep the tools from just working
+//even when a clicker isn't pushed. 
 let isDrawing: boolean = false;
 let isErasing: boolean = false;
-
+// purpose is to keep a history of the drawings
+//and saves them once it gets 25 it replaces it with a new one automatically
 const drawHistory: string[] =[];
 const maxHistory:number =25;
 const storageKey:string = "create-saved-drawing";
