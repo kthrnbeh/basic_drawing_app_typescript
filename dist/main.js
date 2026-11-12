@@ -162,13 +162,14 @@ class ShapeTool {
             "arrow",
             "star",
             "heart",
+            "hexagon"
         ];
         buttons.forEach((name) => {
             const button = document.getElementById(name + 'Button');
             button?.classList.toggle("selected", name === (shape ?? 'brush'));
         });
         const selectedShapeName = shape === null ? "Brush" : shape.charAt(0).toUpperCase() + shape.slice(1);
-        shapePickerButton.textContent = 'Shapes: ${selectedShapeName} ▾';
+        shapePickerButton.textContent = `Shapes: ${selectedShapeName} ▾`;
     }
     start(event) {
         if (!this.currentShape || event.button !== 0)
