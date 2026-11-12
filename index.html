@@ -26,7 +26,8 @@
             <div class="shapes">
                 <h2>Shapes</h2>
                 <button id="shapePickerButton" type="button">Shapes ▾</button>
-                <div class="shapes-grid">
+                <div id="shapePickerPanel" class=""shape-picer-hidden">
+                    <div class="shape-grid"></div>
                     <button id="brushButton" class="shape-option" type="button" title="Brush">
                         <span class="shape-icon">✏️</span>
                         <span class="shape-name">brush</span>
@@ -75,10 +76,12 @@
                 <span class="shape-icon">⬡</span>
                 <span class="shape-name">Hexagon</span>
             </button>
+                </div>
+            </div>
             <label class="shape-fill" for="fillShape">
                 <input type="checkbox" id="fillshape">🪣
             </label>
-                </div>
+                
             </div>
             <button id ="undo">UNDO</button>
             <button id ="eraserButton">Eraser</button>
