@@ -78,7 +78,7 @@ button:hover{
 #drawingCanvas {
     display: block;
     margin: 0 auto;
-    border: 2px solid #5d84b3;
+    border: 2px solid #b8c6d8;
     background-color: white;
     cursor: crosshair;
     touch-action: none; /* Prevent touch scrolling on mobile devices */
@@ -191,7 +191,7 @@ h3{
 
 .music-player{
     border-bottom:1px solid gray;
-    padding: top 12px;
+    padding-top: 12px;
     margin-top: 12px;
     text-align: center;
 }
@@ -220,13 +220,14 @@ h3{
     width: fit-content;
     max-width: 100%;
     margin: 0 auto;
+    box-shadow: 0 3px 12px rgba(30,41,59,0.08);
 }
 #traceGuide{
     position:absolute;
-    top:2px;
-    left: 2px;
-    width: calc(100% - 4px);
-    height: calc(100% - 4px);
+    top:1px;
+    left: 1px;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
     object-fit: contain;
     opacity: 0.3;
     pointer-events: none;
@@ -258,4 +259,57 @@ footer{
     text-align: center;
      color: #64748b;
      margin-top: 25px;
+};
+@media screen and (max-width: 960px){
+    .layout{
+        grid-template-columns: 190px minmax(0,1fr);
+        gap: 12px;
+
+    }
+    section{
+        padding:14px
+    }
+    
+}
+
+@media screen and (max-width:500px) {
+    body{
+        padding: 10px;
+    }
+    .layout{
+        grid-template-columns: minmax(0,1fr);
+        gap: 12px;
+    }
+    section{
+        padding: 12px;
+        border-radius:8px;
+
+    }
+    section.tools{
+        gap:6px;
+    }
+    .canvas-stack{
+        width:100%;
+    }
+    #drawingCanvas{
+        width: 100%;
+        height: auto;
+        box-sizing: border-box;
+    }
+    .container{
+        flex-wrap: wrap;
+        gap:5px;
+        justify-content: center;
+    }
+    .container button{
+        flex: 1 1 90px;
+        margin: 2px;
+    }
+    .shape-picker{
+        max-width: 100%;
+    }
+    h2{
+        padding-top:12px;
+    }
+    
 }
