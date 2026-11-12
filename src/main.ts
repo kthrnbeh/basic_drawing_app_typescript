@@ -562,4 +562,18 @@ const traceGuide = document.getElementById("traceGuide") as HTMLImageElement;
 let traceURL:string | null =null;
 traceUpload.addEventListener("change",()=> {
     const file =traceUpload.files?.[0];
+    if (!file) return;
+    if(!file.type.startsWith("image/")){
+        alert("No image file selected.");
+        return;
+    }
+    if(traceURL ! == null){
+        URL.revokeObjectURL(traceURL);
+    }
+    traceURL=URL.createObjectURL(file);
+    traceGuide.src =traceURL;
+    traceGuide.hidden=false;
+
 })
+
+
