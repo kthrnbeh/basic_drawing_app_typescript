@@ -424,5 +424,60 @@ previousButton.addEventListener("click", async () => {
         alert("Problem getting previous drawing.");
     }
 });
+const songs = [
+    "./music/song1.mp3",
+    "./music/song2.mp3",
+    "./music/song3.mp3",
+];
+let currentSong = 0;
+const audio = new Audio(songs[currentSong]);
+audio.volume = 0.4;
+const playMusic = document.getElementById("playMusic");
+const previousSong = document.getElementById("previousSong");
+const nextSong = document.getElementById("nextSong");
+const songName = document.getElementById("songName");
+const musicVolume = document.getElementById("musicVolume");
+playMusic.addEventListener("click", async () => {
+    if (audio.paused) {
+        try {
+            await audio.play();
+            playMusic.textContent = "⏸";
+        }
+        catch (error) {
+            console.error("Music didn't play", error);
+        }
+    }
+    else {
+        audio.pause();
+        playMusic.textContent = "▶";
+    }
+});
+function changeSong(direction) {
+    const wasPlaying = !audio.paused;
+    currentSong = (currentSong + direction + songs.length) % songs.length;
+    audio.src = songs[currentSong];
+    songName.textContent = `Song ${currentSong + 1}`;
+    if (wasPlaying) {
+        void audio.play().catch((error) => {
+            console.error("Music didn't play:", error);
+            playMusic.textContent = "▶";
+        });
+    }
+    else {
+        playMusic.textContent = "▶";
+    }
+}
+nextSong.addEventListener('click', () => {
+    changeSong(1);
+});
+previousSong.addEventListener('click', () => {
+    changeSong(-1);
+});
+audio.addEventListener('ended', () => {
+    changeSong(1);
+});
+musicVolume.addEventListener('input', () => {
+    audio.volume = Number(musicVolume.value) / 100;
+});
 export {};
 //# sourceMappingURL=main.js.map
