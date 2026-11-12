@@ -567,7 +567,7 @@ traceUpload.addEventListener("change",()=> {
         alert("No image file selected.");
         return;
     }
-    if(traceURL ! == null){
+    if(traceURL !== null){
         URL.revokeObjectURL(traceURL);
     }
     traceURL=URL.createObjectURL(file);
