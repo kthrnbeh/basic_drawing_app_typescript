@@ -64,7 +64,7 @@ document.addEventListener("click",() => {
         }
 
     }
-    //similar to undo but brings drawing back even if the page is refreshed, by saving a copy.
+    //similar to undo but brings drawing back even if the page is refreshed, by searching a copy of undo.
     function findPreviousDrawing(index:number, current:string): number{
         if (index <0){
             return -1;
@@ -148,14 +148,16 @@ type shapeKind = |"rectangle"
 | "star"
 | "heart"
 | "hexagon";
-//purpose the 
+//purpose the shape tools buttons are selected, and remembered.
+//also remembers how the tool is used and when it's stopped. 
 class ShapeTool {
     private currentShape: shapeKind | null = null;
     private startX: number = 0;
     private startY: number = 0;
     private dragging: boolean = false;
     private snapshot: ImageData | null = null;
-
+    //connects to the correct shape from the html 
+    
     constructor(
         private canvas: HTMLCanvasElement,
         private ctx: CanvasRenderingContext2D,
@@ -172,6 +174,9 @@ class ShapeTool {
             { id: "heartButton", tool: "heart" },
             { id: "hexagonButton", tool: "hexagon" },
         ];
+        //purpose when one of the buttons is clicked, it connects to a shape that will be used.
+        //each is available seperately and called seperately.
+        
 
         buttons.forEach((item) => {
             const button = document.getElementById(item.id);
@@ -180,17 +185,20 @@ class ShapeTool {
                 closeShapePicker();
             });
         });
+        //remembers whether the pointer of the mouse was dragged, moved, or let go. 
+        //to get the drawing or stop the drawing you wanted.
 
         this.canvas.addEventListener("pointerdown", (event) => this.start(event));
         this.canvas.addEventListener("pointermove", (event) => this.move(event));
         this.canvas.addEventListener("pointerup", (event) => this.finish(event));
         this.canvas.addEventListener("pointercancel", (event) => this.cancel());
     }
-
+    //purpose to tell whether there is a shape being used or a brush.
     public isActive(): boolean {
         return this.currentShape !== null;
     }
-
+    //purpose is to turn of a brush and eraser if a shape is used, to 
+    //select shape, and change the button appearance when its selected. 
     public selectTool(shape: shapeKind | null): void {
         this.currentShape = shape;
         isDrawing = false;
@@ -216,7 +224,7 @@ class ShapeTool {
         const selectedShapeName = shape === null ?"Brush" : shape.charAt(0).toUpperCase() + shape.slice(1);
         shapePickerButton.textContent = `Shapes: ${selectedShapeName} ▾`;
     }
-
+    //starts the pointer or size of the shape when a click is made, and stops when its let go.
     private start(event: PointerEvent): void {
         if(!this.currentShape || event.button !== 0) return;
         const position = getCanvasPosition(event);
