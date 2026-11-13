@@ -407,12 +407,11 @@ class ShapeTool {
     }
    
 }
+//purpose to call the eraser button info from the html file
+const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
 //purpose make a tool shape but the auto selected is a brush from the list.
 const shapeTool = new ShapeTool(canvas, ctx);
 shapeTool.selectTool(null);
-
-//purpose to call the eraser button info from the html file
-const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
 // purpose when the eraser button on and off.it also turns off the shape tool. 
 eraserButton.addEventListener("click", () => {
     const nextState = !isErasing;
