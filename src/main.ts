@@ -74,7 +74,8 @@ document.addEventListener("click",() => {
         }
         return findPreviousDrawing(index -1,current);
         //the autosave function, so the last two items work. 
-    } async function autoSaveDrawing(): Promise<void> {
+    } 
+    async function autoSaveDrawing(): Promise<void> {
     try {
         const blob = await new Promise<Blob>((resolve, reject) => {
             canvas.toBlob((result) => {
