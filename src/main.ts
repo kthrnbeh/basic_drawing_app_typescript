@@ -15,21 +15,25 @@ ctx.lineJoin = "round";
 let isDrawing: boolean = false;
 let isErasing: boolean = false;
 // purpose is to keep a history of the drawings
-//and saves them once it gets 25 it replaces it with a new one automatically
+//and saves them once it gets 25 removes the oldest drawing to put in a new one.
 const drawHistory: string[] =[];
 const maxHistory:number =25;
 const storageKey:string = "create-saved-drawing";
 let autoSaveTimer: ReturnType <typeof setTimeout> |undefined;
 
-
+//purpose of this function is to help the mouse/clicker
+//work only in the confines of the canvas, so that its able to not draw outside of it,
+//even when the size changes.
 function getCanvasPosition(event: PointerEvent) {
     const rect = canvas.getBoundingClientRect();
     const x = (event.clientX - rect.left) * (canvas.width / rect.width);
     const y = (event.clientY - rect.top) * (canvas.height / rect.height);
     return { x, y };
 }
+//purpose link it with the html shapeinfo
 const shapePickerButton = document.getElementById("shapePickerButton") as HTMLButtonElement;
 const shapePickerPanel = document.getElementById("shapePickerPanel") as HTMLDivElement;
+//purpose the shape menu open and closing. 
 function openShapePicker(): void {
     shapePickerPanel.classList.remove("hidden");
 }
@@ -39,6 +43,7 @@ function closeShapePicker(): void{
 function toggleShapePicker(): void {
     shapePickerPanel.classList.toggle("hidden");
 }
+//purpse to use the mouse to click the shape menu and have it work/open or close.
 shapePickerButton.addEventListener("click", (event)=> {
     event.stopPropagation();
     toggleShapePicker();
@@ -46,10 +51,11 @@ shapePickerButton.addEventListener("click", (event)=> {
 shapePickerPanel.addEventListener("click", (event)=>{
     event.stopPropagation();
 });
+//purpose, the menu is open but someone clicks somewhere else it can close it. 
 document.addEventListener("click",() => {
     closeShapePicker();
 })
-
+// purpose function of the undo button, saves the past picture so I can bring it back if needed.
     function recordHistory():void {
         const snapshot =canvas.toDataURL("image/png");
         drawHistory.push(snapshot);
@@ -58,6 +64,7 @@ document.addEventListener("click",() => {
         }
 
     }
+    //similar to undo but brings drawing back even if the page is refreshed, by saving a copy.
     function findPreviousDrawing(index:number, current:string): number{
         if (index <0){
             return -1;
@@ -66,6 +73,7 @@ document.addEventListener("click",() => {
             return index;
         }
         return findPreviousDrawing(index -1,current);
+        //the autosave function, so the last two items work. 
     } async function autoSaveDrawing(): Promise<void> {
     try {
         const blob = await new Promise<Blob>((resolve, reject) => {
@@ -77,6 +85,7 @@ document.addEventListener("click",() => {
                 }
             }, "image/png");
         });
+        // show the image that was created by the autosave that was stored. 
         const image = await new Promise<string>((resolve,reject)=>{
             const reader = new FileReader();
 
@@ -91,13 +100,15 @@ document.addEventListener("click",() => {
             console.error("AutoSave Fail", error);
         }
     }
-
+    //purpose of this funtion is the autosaves scheduled save and it's every 500miliseconds 
         function scheduleAutoSave(): void{
             clearTimeout(autoSaveTimer);
             autoSaveTimer = setTimeout(()=>{
                 void autoSaveDrawing();
             }, 500);
         }
+    //purpose load the saved picture that was saved. 
+
         async function restoreDrawing(imageData:string):Promise<void> {
             const image =new Image();
             image.src=imageData;
@@ -109,6 +120,9 @@ document.addEventListener("click",() => {
             ctx!.restore();
 
         }
+        //purpose undo the last part that was done or added to the picture.
+        //basically lets your drawing take a step back.
+
         async function undoDrawing(): Promise<void>{
             if(drawHistory.length <2) return;
             const current =drawHistory.pop()!;
@@ -124,7 +138,7 @@ document.addEventListener("click",() => {
             scheduleAutoSave();
             
         }
-    
+    //the purpose for the list of the shapes, so the user can select them.
 type shapeKind = |"rectangle" 
 | "circle" 
 | "line" 
@@ -134,7 +148,7 @@ type shapeKind = |"rectangle"
 | "star"
 | "heart"
 | "hexagon";
-
+//purpose the 
 class ShapeTool {
     private currentShape: shapeKind | null = null;
     private startX: number = 0;
