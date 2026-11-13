@@ -48,7 +48,7 @@ shapePickerButton.addEventListener("click", (event)=> {
     event.stopPropagation();
     toggleShapePicker();
 });
-shapePickerPanel.addEventListener("click", (event)=>{
+shapePickerPanel.addEventListener("click",(event)=>{
     event.stopPropagation();
 });
 //purpose, the menu is open but someone clicks somewhere else it can close it. 
@@ -530,6 +530,40 @@ previousButton.addEventListener("click",async ()=>{
         alert("Problem getting previous drawing.")
     }
 });
+// calls the html to the ts. allows user to upload an image, makes a trace guide, or deletes it.
+const traceUpload = document.getElementById("traceUpload") as HTMLInputElement;
+const traceGuide = document.getElementById("traceGuide") as HTMLImageElement;
+const removeTrace = document.getElementById("removeTrace") as HTMLButtonElement;
+//stores a temp url for the trace img
+let traceURL:string | null =null;
+//check for the file,display it, and remove it when the user selects the buttons
+traceUpload.addEventListener("change",()=> {
+    const file =traceUpload.files?.[0];
+    if (!file) return;
+    if(!file.type.startsWith("image/")){
+        alert("No image file selected.");
+        return;
+    }
+    if(traceURL !== null){
+        URL.revokeObjectURL(traceURL);
+    }
+    traceURL=URL.createObjectURL(file);
+    traceGuide.src =traceURL;
+    traceGuide.hidden=false;
+    removeTrace.addEventListener("click", ()=>{
+        traceGuide.hidden =true;
+        traceGuide.removeAttribute("src");
+        traceUpload.value="";
+
+        if(traceURL !== null){
+            URL.revokeObjectURL(traceURL);
+            traceURL = null
+        }
+    })
+
+})
+
+
 //file path storage for the program to know what we have. 
 const songs:string[]=[
     "./music/song1.mp3",
@@ -591,37 +625,3 @@ changeSong(1)});
 //for the user to be able to adjust the volume
 musicVolume.addEventListener('input',()=>{
 audio.volume = Number(musicVolume.value)/100;});
-// calls the html to the ts. allows user to upload an image, makes a trace guide, or deletes it.
-const traceUpload = document.getElementById("traceUpload") as HTMLInputElement;
-const traceGuide = document.getElementById("traceGuide") as HTMLImageElement;
-const removeTrace = document.getElementById("removeTrace") as HTMLButtonElement;
-//stores a temp url for the trace img
-let traceURL:string | null =null;
-//check for the file,display it, and remove it when the user selects the buttons
-traceUpload.addEventListener("change",()=> {
-    const file =traceUpload.files?.[0];
-    if (!file) return;
-    if(!file.type.startsWith("image/")){
-        alert("No image file selected.");
-        return;
-    }
-    if(traceURL !== null){
-        URL.revokeObjectURL(traceURL);
-    }
-    traceURL=URL.createObjectURL(file);
-    traceGuide.src =traceURL;
-    traceGuide.hidden=false;
-    removeTrace.addEventListener("click", ()=>{
-        traceGuide.hidden =true;
-        traceGuide.removeAttribute("src");
-        traceUpload.value="";
-
-        if(traceURL !== null){
-            URL.revokeObjectURL(traceURL);
-            traceURL = null
-        }
-    })
-
-})
-
-
