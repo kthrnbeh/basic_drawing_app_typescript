@@ -16,6 +16,7 @@
 
     <main class="layout">
         <section class="tools">
+             <!-- Contains the music player and drawing tools. -->
              <div class="music-player">
             <h3>MUSIC PLAYER</h3>
             <p id="songName">Song1</p>
@@ -31,12 +32,15 @@
 
         </div>
             <h2>Tools</h2>
+            <!-- Allows the user to choose the brush color and size. -->
             <label for="colorPicker">Brush Color:</label>
             <input type="color" id="colorPicker" value="#000000">
-           <label for="brushSize"> Brush size:</label> 
-           <input type="range" id="brushSize" min="1" max="50" value="5">
+            <label for="brushSize"> Brush size:</label> 
+            <input type="range" id="brushSize" min="1" max="50" value="5">
             <span id="brushSizeValue"></span>
             <div class="shapes">
+
+            <!-- Contains the buttons for choosing different shapes. -->
                 <h2>Shapes</h2>
                 <button id="shapePickerButton" type="button">Shapes ▾</button>
                 <div id="shapePickerPanel" class="shape-picker hidden">
@@ -91,19 +95,23 @@
             </button>
                 </div>
             </div>
+            <!-- Allows the user to choose whether a shape is filled. -->
             <label class="shape-fill" for="fillShape">
                 <input type="checkbox" id="fillShape">🪣
             </label>
                 
             </div> 
+            <!-- Allows the user to upload and remove a tracing image. -->
             <div class="tracing-tools">
                 <input type="file" id="traceUpload" accept ="image/*">
                 <button id="removeTrace" type="button" title="Remove tracing image">X</button>
 
             </div>
+            <!-- Saves the completed drawing as an image. -->
             <button id="saveButton">+</button>
 
         </section>
+          <!-- Contains the canvas, tracing image, and drawing controls. -->
         <section class="drawing-area">
             <h2>Drawing Area</h2>
             <div class="canvas-stack">
