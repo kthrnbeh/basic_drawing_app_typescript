@@ -235,7 +235,7 @@ class ShapeTool {
         this.ctx.globalCompositeOperation = "source-over";
     }
 
-    // Add move, finish, and cancel implementations here when you implement shape drawing.
+    // give a temporary shape preview while the mouse is clicked down and dragged. 
     private move(event:PointerEvent): void{
         if(!this.dragging || !this.snapshot) return;
         if((event.buttons & 1) === 0){
@@ -245,6 +245,7 @@ class ShapeTool {
         this.ctx.putImageData(this.snapshot,0,0);
         this.drawShape(event);
     }
+    //purpose make the shape perminantly its size when the mouse is let go. 
     private finish(event:PointerEvent):void {
         if(!this.dragging || !this.snapshot)return;
         this.ctx.putImageData(this.snapshot,0,0);
@@ -252,6 +253,7 @@ class ShapeTool {
         this.dragging=false;
         this.snapshot = null;
     }
+    //purpose snapshot made so in case the user wants the shape to what it was prior.
     private cancel():void {
         if (this.snapshot){
             this.ctx.putImageData(this.snapshot,0,0);
@@ -259,6 +261,8 @@ class ShapeTool {
         this.dragging =false;
         this.snapshot =null;
     }
+    //purpose the shapes math and position on the canvas is calculated, so that the shape stays
+    //the shape at various sizes and on the canvas. 
     private drawShape(event:PointerEvent):void{
         const position = getCanvasPosition(event);
         const x =position.x;
@@ -272,7 +276,7 @@ class ShapeTool {
         this.ctx.fillStyle = colorPicker.value;
         this.ctx.globalCompositeOperation = "source-over";
         this.ctx.beginPath();
-
+        //purpose to decide the shapes instrucions that will be used. 
         switch (this.currentShape){
             case "rectangle":
                 this.ctx.rect(this.startX,this.startY,width,height);
@@ -388,7 +392,8 @@ class ShapeTool {
         }
         this.ctx.closePath();
         break;
-}
+}          //purpose to fill the shape with selected color only when fill option is selected.
+         //two exeptions arrows and lines.
         const fillShape = document.getElementById('fillShape')as HTMLInputElement;
 
         if (fillShape.checked && this.currentShape !== "line" && this.currentShape !== "arrow"){
@@ -401,12 +406,13 @@ class ShapeTool {
     }
    
 }
-
-
-const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
+//purpose make a tool shape but the auto selected is a brush from the list.
 const shapeTool = new ShapeTool(canvas, ctx);
 shapeTool.selectTool(null);
 
+//purpose to call the eraser button info from the html file
+const eraserButton = document.getElementById("eraserButton") as HTMLButtonElement;
+// purpose when the eraser button on and off.it also turns off the shape tool. 
 eraserButton.addEventListener("click", () => {
     const nextState = !isErasing;
     shapeTool.selectTool(null);
@@ -414,20 +420,26 @@ eraserButton.addEventListener("click", () => {
     isErasing = nextState;
     eraserButton.classList.toggle("active", isErasing);
 });
-
+//purpose is to call the clear button from the html file to the ts. 
 const clearButton = document.getElementById("clearButton") as HTMLButtonElement;
+//turns on and off the clear button, clears everything from canvas and but saves it also 
+//as a history item. 
 clearButton.addEventListener("click", () => {
     clearTimeout(autoSaveTimer);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     recordHistory();
    });
+
+//purpose to call the undo from html file to the ts.
 const undoButton =document.getElementById("undo") as HTMLAnchorElement;
+//turn on and off the undo button
     undoButton.addEventListener("click", () =>{
         void undoDrawing(); });
     
 
-
+//call the save button from the html to the ts. 
 const saveButton = document.getElementById("saveButton") as HTMLButtonElement;
+//turns the current imag into a png image, and download it when the save button is clicked. 
 saveButton.addEventListener("click", () => {
     const image = canvas.toDataURL("image/png");
     const link = document.createElement("a");
@@ -435,19 +447,24 @@ saveButton.addEventListener("click", () => {
     link.download = "drawing.png";
     link.click();
 });
-
+// call the color picker input into the ts.
 const colorPicker = document.getElementById("colorPicker") as HTMLInputElement;
+//connect the html to the color and shapes that are selected. 
+//allow user to pick there color for drawing. 
 colorPicker.addEventListener("input", () => {
     ctx.strokeStyle = colorPicker.value;
 });
-
+//call the brushSize input into the ts.
 const brushSize = document.getElementById("brushSize") as HTMLInputElement;
 const brushSizeValue = document.getElementById("brushSizeValue") as HTMLSpanElement;
+// selects the brush sizes thickness, and displays it. 
 brushSize.addEventListener("input", () => {
     ctx.lineWidth = Number(brushSize.value);
     brushSizeValue.textContent = brushSize.value;
 });
 
+//purpose is for when the user uses brush they can draw while pressing the button down.
+//as well as the eraser when selected. 
 canvas.addEventListener("pointerdown", (event) => {
     if (shapeTool.isActive()) return;
     isDrawing = true;
@@ -476,46 +493,27 @@ canvas.addEventListener("pointermove", (event) => {
     ctx.beginPath();
     ctx.moveTo(position.x, position.y);
 });
-
+//when the pointer is up the brush/drag/eraser stop and a history is added.
+//a scheduled auto save is also done. 
 canvas.addEventListener("pointerup", () => {
     isDrawing = false;
     recordHistory();
     scheduleAutoSave();
 });
-
+//drawing stops if an issue arises 
 canvas.addEventListener("pointercancel", () => {
     isDrawing = false;
 });
-
-class DrawingApp {
-    private isDrawing: boolean = false;
-    private isErasing: boolean = false;
-
-    constructor() {
-        console.log("DrawingApp started");
-    }
-
-    startDrawing(): void {
-        this.isDrawing = true;
-        console.log("Drawing start");
-    }
-
-    stopDrawing(): void {
-        this.isDrawing = false;
-        console.log("Drawing stop");
-    }
-}
-
-const app = new DrawingApp();
-app.startDrawing();
-app.stopDrawing();
-
+//prepares the canvas when it first starts with clear and saves the blank canvas in history.
 function initializeDrawing():void{
     ctx?.clearRect(0,0,canvas.width,canvas.height);
     recordHistory();
 }
 initializeDrawing();
+//calls the previous button from html to the ts.
 const previousButton=document.getElementById("previous") as HTMLButtonElement;
+//when previous is selected it brings up what is saved in the history last. 
+//prepares if nothing is found and error messages, and if one is found to the console.
 previousButton.addEventListener("click",async ()=>{
     const savedImage=localStorage.getItem(storageKey);
     if(!savedImage){
@@ -532,20 +530,25 @@ previousButton.addEventListener("click",async ()=>{
         alert("Problem getting previous drawing.")
     }
 });
+//file path storage for the program to know what we have. 
 const songs:string[]=[
     "./music/song1.mp3",
     "./music/song2.mp3",
     "./music/song3.mp3",
 
 ];
+//keep track of which song is currently selected. 
 let currentSong: number =0;
+//creates an audio player and a start volume
 const audio = new Audio(songs[currentSong])
 audio.volume=0.4;
+//this whole const section calls the html to the ts.,music,  volume slider,songname
 const playMusic = document.getElementById("playMusic") as HTMLButtonElement;
 const previousSong = document.getElementById("previousSong") as HTMLButtonElement;
 const nextSong = document.getElementById("nextSong") as HTMLButtonElement;
 const songName = document.getElementById("songName") as HTMLParagraphElement;
 const musicVolume = document.getElementById("musicVolume") as HTMLInputElement;
+//puprose is to play or pause music when the button is selected. 
 playMusic.addEventListener("click",async() =>{
     if(audio.paused){
         try { 
@@ -561,6 +564,8 @@ playMusic.addEventListener("click",async() =>{
         }
    
 });
+// allow user to change song forward or back in either direction. 
+//also set up error catching in case it doesn't play. 
 function changeSong(direction:number):void{
     const wasPlaying =!audio.paused;
     currentSong=(currentSong + direction +songs.length)% songs.length;
@@ -574,19 +579,25 @@ function changeSong(direction:number):void{
         playMusic.textContent="▶";
     }
 }
+//when the next button is clicked the user can move forward to the next song. 
 nextSong.addEventListener('click',()=>{
 changeSong(1)});
+// when the previous button is clicked the user can move back to a previous song. 
 previousSong.addEventListener('click',()=>{
 changeSong(-1)});
+//when the song ends the song auto goes to the next song on the list.
 audio.addEventListener('ended',()=>{
 changeSong(1)});
+//for the user to be able to adjust the volume
 musicVolume.addEventListener('input',()=>{
 audio.volume = Number(musicVolume.value)/100;});
-
+// calls the html to the ts. allows user to upload an image, makes a trace guide, or deletes it.
 const traceUpload = document.getElementById("traceUpload") as HTMLInputElement;
 const traceGuide = document.getElementById("traceGuide") as HTMLImageElement;
 const removeTrace = document.getElementById("removeTrace") as HTMLButtonElement;
+//stores a temp url for the trace img
 let traceURL:string | null =null;
+//check for the file,display it, and remove it when the user selects the buttons
 traceUpload.addEventListener("change",()=> {
     const file =traceUpload.files?.[0];
     if (!file) return;
@@ -607,7 +618,7 @@ traceUpload.addEventListener("change",()=> {
 
         if(traceURL !== null){
             URL.revokeObjectURL(traceURL);
-            traceURL == null
+            traceURL = null
         }
     })
 
